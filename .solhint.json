@@ -1,0 +1,7 @@
+{
+  "extends": "solhint:default",
+  "rules": {
+    "max-line-length": ["warn", 100],
+    "quotes": ["double"]
+  }
+}
