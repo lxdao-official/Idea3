@@ -13,6 +13,21 @@ abstract contract ERC721Tradable is ERC721 {
 
     mapping(uint256 => TraderOrder) private _orderForTokenId;
 
+    event Listed(
+        uint256 indexed tokenId,
+        address indexed lister,
+        uint256 price,
+        uint256 list_time,
+        uint256 duration
+    );
+
+    event Bought(
+        uint256 indexed tokenId,
+        address indexed buyer,
+        address indexed seller,
+        uint256 price
+    );
+
     function list(
         uint256 tokenId,
         uint256 price,
@@ -27,6 +42,7 @@ abstract contract ERC721Tradable is ERC721 {
             block.timestamp,
             duration
         );
+        emit Listed(tokenId, msg.sender, price, block.timestamp, duration);
     }
 
     function buy(uint256 tokenId) public payable {
@@ -48,6 +64,8 @@ abstract contract ERC721Tradable is ERC721 {
         payable(seller).transfer(msg.value);
 
         delete _orderForTokenId[tokenId];
+
+        emit Bought(tokenId, msg.sender, seller, msg.value);
     }
 
     function orderOfTokenId(uint256 tokenId)

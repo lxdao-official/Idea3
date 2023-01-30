@@ -93,4 +93,16 @@ contract Idea is IdeaNFT, IdeaMetadata {
         require(_exists(tokenId), "tokenId doesn't exist");
         return _createTokenURI(ideas[tokenId]);
     }
+
+    function getIdeas(uint256[] memory _ideaIds)
+        public
+        view
+        returns (IdeaStruct[] memory)
+    {
+        IdeaStruct[] memory ideaArray = new IdeaStruct[](_ideaIds.length);
+        for (uint256 i = 0; i < _ideaIds.length; i++) {
+            ideaArray[i] = ideas[_ideaIds[i]];
+        }
+        return ideaArray;
+    }
 }
