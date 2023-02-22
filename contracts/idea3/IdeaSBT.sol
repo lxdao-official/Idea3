@@ -151,4 +151,34 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         }
         return ideaArray;
     }
+
+    function editIdea(
+        uint256 id,
+        string memory title,
+        string memory desc,
+        string memory markdown,
+        string memory submitterName
+    ) public {
+        require(
+            ideas[id].submitter == msg.sender,
+            "Only submitter can edit idea"
+        );
+        ideas[id].title = title;
+        ideas[id].desc = desc;
+        ideas[id].markdown = markdown;
+        ideas[id].submitterName = submitterName;
+    }
+
+    function editIdeaByOwner(
+        uint256 id,
+        string memory title,
+        string memory desc,
+        string memory markdown,
+        string memory submitterName
+    ) public onlyOwner {
+        ideas[id].title = title;
+        ideas[id].desc = desc;
+        ideas[id].markdown = markdown;
+        ideas[id].submitterName = submitterName;
+    }
 }

@@ -22,9 +22,9 @@ const main = async () => {
 
   await (
     await sbt.submitIdea(
-      "IdeasDAO - Make more ideas reality",
+      "Idea3 - Make more ideas reality",
       "Share your ideas, get $IDEA and support from the community, and make it reality.",
-      "[https://ideasdao.xyz](https://ideasdao.xyz)",
+      "[https://idea3.link](https://idea3.link)",
       "LXDAO"
     )
   ).wait();
