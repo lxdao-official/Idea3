@@ -16,37 +16,28 @@ abstract contract IdeaMetadata {
         string memory _1 = "</p>"
         "</div>"
         "<div>"
-        "<p"
-        "style='font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>";
+        "<p style='font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>";
         string memory _2 = "</p>"
         "</div>"
         "</body>"
         "</foreignObject>"
         "</g>"
         "<text text-rendering='optimizeSpeed'>"
-        "<textPath startOffset='-100%' fill='#fff' font-family='Courier New, monospace' font-size='12px'"
-        "font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
+        "<textPath startOffset='-100%' fill='#fff' font-family='Courier New, monospace' font-size='12px' font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
         string
-            memory _3 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'"
-            "repeatCount='indefinite' />"
+            memory _3 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s' repeatCount='indefinite' />"
             "</textPath>"
-            "<textPath startOffset='0%' fill='#fff' font-family='Courier New, monospace' font-size='12px'"
-            "font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
+            "<textPath startOffset='0%' fill='#fff' font-family='Courier New, monospace' font-size='12px' font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
         string
-            memory _4 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'"
-            "repeatCount='indefinite' />"
+            memory _4 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s' repeatCount='indefinite' />"
             "</textPath>"
-            "<textPath startOffset='-50%' fill='#fff' font-family='Courier New, monospace' font-size='12px'"
-            "font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
+            "<textPath startOffset='-50%' fill='#fff' font-family='Courier New, monospace' font-size='12px' font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
         string
-            memory _5 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'"
-            "repeatCount='indefinite' />"
+            memory _5 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s' repeatCount='indefinite' />"
             "</textPath>"
-            "<textPath startOffset='50%' fill='#fff' font-family='Courier New, monospace' font-size='12px'"
-            "font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
+            "<textPath startOffset='50%' fill='#fff' font-family='Courier New, monospace' font-size='12px' font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>";
         string
-            memory _6 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'"
-            "repeatCount='indefinite' />"
+            memory _6 = "<animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s' repeatCount='indefinite' />"
             "</textPath>"
             "</text>"
             "</g>"
@@ -67,18 +58,16 @@ abstract contract IdeaMetadata {
     ) internal pure virtual returns (bytes memory) {
         string memory _animate = _animateText(_addr);
         string
-            memory _start = "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='400' height='400'"
-            "viewBox='0 0 400 400' fill='none'>"
+            memory _start = "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='1024' height='1024' viewBox='0 0 400 400' fill='none'>"
             "<defs>"
-            "<path xmlns='http://www.w3.org/2000/svg' id='text-path-a'"
-            "d='M 20 10 H 380 A 28 28 0 0 1 390 20 V 380 A 28 28 0 0 1 380 390 H 20 A 28 28 0 0 1 10 380 V 20 A 28 28 0 0 1 20 10 z' />"
+            "<path xmlns='http://www.w3.org/2000/svg' id='text-path-a' d='M 20 10 H 380 A 28 28 0 0 1 390 20 V 380 A 28 28 0 0 1 380 390 H 20 A 28 28 0 0 1 10 380 V 20 A 28 28 0 0 1 20 10 z' />"
             "<clipPath xmlns='http://www.w3.org/2000/svg' id='corners'>"
             "<rect width='400' height='400' rx='18' ry='18' />"
             "</clipPath>"
             "</defs>"
             "<g opacity='1' transform='translate(0 0)' font-family='Courier New, monospace'>"
             "<g xmlns='http://www.w3.org/2000/svg' clip-path='url(#corners)'>"
-            "<rect x='0' y='0' width='400' height='400' rx='15' ry='15' fill='rgba(50,50,50,1)' />"
+            "<rect x='0' y='0' width='400' height='400' rx='15' ry='15' fill='rgba(40,40,40,1)' />"
             "</g>"
             "<g opacity='1' transform='translate(25 25) '>"
             "<foreignObject width='360' height='60'>"
@@ -100,15 +89,13 @@ abstract contract IdeaMetadata {
         "<foreignObject width='350' height='100'>"
         "<body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;padding-top:5px;'>"
         "<div style='margin-bottom:15px;'>"
-        "<p"
-        "style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>"
-        "<span style='color:rgba(255,255,255,0.6)'>Approved</span>";
+        "<p style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>"
+        "<span style='color:rgba(255,255,255,0.6)'>Approved </span>";
         string memory _4 = "</p>"
         "</div>"
         "<div style='margin-bottom:12px;'>"
-        "<p"
-        "style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>"
-        "<span style='color:rgba(255,255,255,0.6)'>Idea by</span>";
+        "<p style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>"
+        "<span style='color:rgba(255,255,255,0.6)'>Idea by </span>";
         return
             abi.encodePacked(
                 "data:image/svg+xml;base64,",
@@ -120,7 +107,7 @@ abstract contract IdeaMetadata {
                                 _id,
                                 idea.title,
                                 _sec,
-                                idea.content
+                                idea.desc
                             ),
                             abi.encodePacked(
                                 _3,
@@ -160,7 +147,7 @@ abstract contract IdeaMetadata {
                                 _id,
                                 idea.title,
                                 '","description": "',
-                                idea.content,
+                                idea.desc,
                                 '", "image": "',
                                 image,
                                 '", "attributes": [{"trait_type": "Approved", "value": "',

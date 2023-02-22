@@ -9,15 +9,13 @@
     </defs>
     <g opacity='1' transform='translate(0 0)' font-family='Courier New, monospace'>
         <g xmlns='http://www.w3.org/2000/svg' clip-path='url(#corners)'>
-            <rect x='0' y='0' width='400' height='400' rx='15' ry='15' fill='rgba(40,40,40,1)' />
+            <rect x='0' y='0' width='400' height='400' rx='15' ry='15' fill='rgba(50,50,50,1)' />
         </g>
         <g opacity='1' transform='translate(25 25) '>
             <foreignObject width='360' height='60'>
 
                 <body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;'>
-                    <p style='font-size:24px;margin:0;color:#fff;'>
-                        一个基于人脸识别的 pfp 生成 NFT 项目和工具
-                    </p>
+                    <p style='font-size:24px;margin:0;color:#fff;'>#0 IdeasDAO - Make more ideas reality</p>
                 </body>
             </foreignObject>
         </g>
@@ -25,9 +23,8 @@
             <foreignObject width='360' height='210'>
 
                 <body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;'>
-                    <p style='font-size:16px;margin:0;color:#fff;'>
-                        一个基于人脸识别的 pfp 生成 NFT 项目和工具，通过人脸识别来组装各种卡通组件，定制自己的 PFP
-                    </p>
+                    <p style='font-size:16px;margin:0;color:#fff;'>Share your ideas, get $IDEA and support from the
+                        community, and make it reality.</p>
                 </body>
             </foreignObject>
         </g>
@@ -36,50 +33,41 @@
 
                 <body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;padding-top:5px;'>
                     <div style='margin-bottom:15px;'>
-                        <p
-                            style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>
-                            <span style='color:rgba(255,255,255,0.6)'>Approved </span>YES
-                        </p>
+                        <pstyle='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px
+                            10px;'><span style='color:rgba(255,255,255,0.6)'>Approved</span>No</p>
                     </div>
                     <div style='margin-bottom:12px;'>
-                        <p
-                            style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>
-                            <span style='color:rgba(255,255,255,0.6)'>Idea by </span>芋头
-                        </p>
+                        <pstyle='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px
+                            10px;'><span style='color:rgba(255,255,255,0.6)'>Idea by</span>LXDAO</p>
                     </div>
                     <div>
-                        <p
-                            style='font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>
-                            0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
-                        </p>
+                        <pstyle='font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px
+                            10px;'>f39fd6e51aad88f6f4ce6ab8827279cfffb92266</p>
                     </div>
-
                 </body>
             </foreignObject>
-        </g>
-
-        <text text-rendering='optimizeSpeed'>
+        </g><text text-rendering='optimizeSpeed'>
             <textPath startOffset='-100%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
                 font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
-                0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                f39fd6e51aad88f6f4ce6ab8827279cfffb92266
                 <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
                     repeatCount='indefinite' />
             </textPath>
             <textPath startOffset='0%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
                 font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
-                0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                f39fd6e51aad88f6f4ce6ab8827279cfffb92266
                 <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
                     repeatCount='indefinite' />
             </textPath>
             <textPath startOffset='-50%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
                 font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
-                0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                f39fd6e51aad88f6f4ce6ab8827279cfffb92266
                 <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
                     repeatCount='indefinite' />
             </textPath>
             <textPath startOffset='50%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
                 font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
-                0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                f39fd6e51aad88f6f4ce6ab8827279cfffb92266
                 <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
                     repeatCount='indefinite' />
             </textPath>

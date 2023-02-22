@@ -27,14 +27,15 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         _fee = fee;
     }
 
-    constructor() ERC721("IdeaSBT", "IdeaSBT") {}
+    constructor() ERC721("Idea3SBT", "Idea3SBT") {}
 
     uint256 public ideaCount;
 
     struct IdeaStruct {
         uint256 id;
         string title;
-        string content;
+        string desc;
+        string markdown;
         address submitter;
         string submitterName;
         bool approved;
@@ -43,7 +44,8 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
     event IdeaSubmitted(
         uint256 id,
         string name,
-        string content,
+        string desc,
+        string markdown,
         address submitter,
         string submitterName
     );
@@ -53,7 +55,8 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
 
     function submitIdea(
         string memory title,
-        string memory content,
+        string memory desc,
+        string memory markdown,
         string memory submitterName
     ) public payable {
         if (_feeOn) {
@@ -65,14 +68,22 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         ideas[id] = IdeaStruct(
             id,
             title,
-            content,
+            desc,
+            markdown,
             msg.sender,
             submitterName,
             false
         );
         _safeMint(msg.sender, id);
         ideaCount++;
-        emit IdeaSubmitted(id, title, content, msg.sender, submitterName);
+        emit IdeaSubmitted(
+            id,
+            title,
+            desc,
+            markdown,
+            msg.sender,
+            submitterName
+        );
     }
 
     function approveIdea(uint256 id) public returns (address) {
@@ -96,6 +107,7 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         returns (
             string memory,
             string memory,
+            string memory,
             address,
             string memory,
             bool,
@@ -104,7 +116,8 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
     {
         return (
             ideas[id].title,
-            ideas[id].content,
+            ideas[id].desc,
+            ideas[id].markdown,
             ideas[id].submitter,
             ideas[id].submitterName,
             ideas[id].approved,

@@ -14,30 +14,31 @@ const main = async () => {
   console.log("sbt deploy to ", sbt.address);
   // return;
   const NFT = await ethers.getContractFactory("IdeaNFT");
-  const nft = await NFT.deploy(sbt.address);
-  await nft.deployed();
-  console.log("nft deploy to ", nft.address);
+  // const nft = await NFT.deploy(sbt.address);
+  // await nft.deployed();
+  // console.log("nft deploy to ", nft.address);
 
-  await (await sbt.setApprover(nft.address)).wait();
+  // await (await sbt.setApprover(nft.address)).wait();
 
   await (
     await sbt.submitIdea(
-      "一个基于人脸识别的 pfp 生成 NFT 项目和工具",
-      " 一个基于人脸识别的 pfp 生成 NFT 项目和工具，通过人脸识别来组装各种卡通组件，定制自己的 PFP",
-      "芋头"
+      "IdeasDAO - Make more ideas reality",
+      "Share your ideas, get $IDEA and support from the community, and make it reality.",
+      "[https://ideasdao.xyz](https://ideasdao.xyz)",
+      "LXDAO"
     )
   ).wait();
 
-  await (
-    await sbt.submitIdea("公平公正的黑客松或者 demo day 评选机制", "，基于链上投票等", "Bruce")
-  ).wait();
+  // await (
+  //   await sbt.submitIdea("公平公正的黑客松或者 demo day 评选机制", "，基于链上投票等", "Bruce")
+  // ).wait();
 
   console.log("sbt submit idea");
 
-  await (await nft.approveIdea(1)).wait();
+  // await (await nft.approveIdea(1)).wait();
 
   console.log("nft approve sbt ");
-  // console.log(await idea3.tokenURI(0));
+  console.log(await sbt.tokenURI(0));
 };
 
 main()
