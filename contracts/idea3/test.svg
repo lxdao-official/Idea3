@@ -1,137 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400"
-    viewBox="0 0 400 400" fill="none">
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='400' height='400'
+    viewBox='0 0 400 400' fill='none'>
     <defs>
-        <path xmlns="http://www.w3.org/2000/svg" id="text-path-a"
-            d="M 20 10 H 380 A 28 28 0 0 1 390 20 V 380 A 28 28 0 0 1 380 390 H 20 A 28 28 0 0 1 10 380 V 20 A 28 28 0 0 1 20 10 z" />
-        <filter xmlns="http://www.w3.org/2000/svg" id="f1">
-            <feImage result="p0" xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzQwMCcgdmlld0JveD0nMCAwIDQwMCA0MDAnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzQwMHB4JyBoZWlnaHQ9JzQwMHB4JyBmaWxsPScjYTBiODY5Jy8+PC9zdmc+" />
-            <feImage result="p1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzQwMCcgdmlld0JveD0nMCAwIDQwMCA0MDAnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PGNpcmNsZSBjeD0nMTAwJyBjeT0nMzAwJyByPScxMjBweCcgZmlsbD0nI2MwMmFhYScvPjwvc3ZnPg==" />
-            <feImage result="p2" xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzQwMCcgdmlld0JveD0nMCAwIDQwMCA0MDAnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PGNpcmNsZSBjeD0nMTQ2JyBjeT0nMTI0JyByPScxMjBweCcgZmlsbD0nIzM5OWVmYScvPjwvc3ZnPg==" />
-            <feImage result="p3" xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzQwMCcgdmlld0JveD0nMCAwIDQwMCA0MDAnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PGNpcmNsZSBjeD0nMzMxJyBjeT0nMjM2JyByPScxMDBweCcgZmlsbD0nIzk3NTdmZicvPjwvc3ZnPg==" />
-            <feBlend mode="overlay" in="p0" in2="p1" />
-            <feBlend mode="exclusion" in2="p2" />
-            <feBlend mode="overlay" in2="p3" result="blendOut" />
-            <feGaussianBlur in="blendOut" stdDeviation="42" />
-        </filter>
-        <clipPath xmlns="http://www.w3.org/2000/svg" id="corners">
-            <rect width="400" height="400" rx="18" ry="18" />
+        <path xmlns='http://www.w3.org/2000/svg' id='text-path-a'
+            d='M 20 10 H 380 A 28 28 0 0 1 390 20 V 380 A 28 28 0 0 1 380 390 H 20 A 28 28 0 0 1 10 380 V 20 A 28 28 0 0 1 20 10 z' />
+        <clipPath xmlns='http://www.w3.org/2000/svg' id='corners'>
+            <rect width='400' height='400' rx='18' ry='18' />
         </clipPath>
-        <rect id="path_0" x="0" y="0" width="100" height="26" />
-        <linearGradient id="linear_0" x1="103%" y1="49%" x2="-3%" y2="49%" gradientUnits="objectBoundingBox">
-            <stop offset="0" stop-color="#00FB8C" stop-opacity="1" />
-            <stop offset="0.0971267" stop-color="#64CCEB" stop-opacity="1" />
-            <stop offset="0.276683" stop-color="#64CCEB" stop-opacity="1" />
-            <stop offset="0.319606" stop-color="#64CCEB" stop-opacity="1" />
-            <stop offset="0.697546" stop-color="#0F39D9" stop-opacity="1" />
-            <stop offset="0.806149" stop-color="#0F39D9" stop-opacity="1" />
-            <stop offset="1" stop-color="#64CCEB" stop-opacity="1" />
-        </linearGradient>
-        <linearGradient id="linear_1" x1="77%" y1="78%" x2="24%" y2="8%" gradientUnits="objectBoundingBox">
-            <stop offset="0" stop-color="#00FB8C" stop-opacity="1" />
-            <stop offset="0.0958371" stop-color="#64CCEB" stop-opacity="1" />
-            <stop offset="0.477009" stop-color="#64CCEB" stop-opacity="1" />
-            <stop offset="0.646695" stop-color="#64CCEB" stop-opacity="1" />
-            <stop offset="1" stop-color="#0F39D9" stop-opacity="1" />
-        </linearGradient>
     </defs>
-    <g opacity="1" transform="translate(0 0)" font-family="'Courier New', monospace">
-        <g xmlns="http://www.w3.org/2000/svg" clip-path="url(#corners)">
-            <rect fill="a0b869" x="0px" y="0px" width="400px" height="400px" />
-            <rect style="filter: url(#f1)" x="0px" y="0px" width="400px" height="400px" />
-            <rect x="0" y="0" width="400" height="400" rx="15" ry="15" fill="rgba(255,255,255,0.4)" />
-            <rect x="13" y="13" width="374" height="374" rx="15" ry="15" stroke="rgba(255,255,255,0.1)" />
+    <g opacity='1' transform='translate(0 0)' font-family='Courier New, monospace'>
+        <g xmlns='http://www.w3.org/2000/svg' clip-path='url(#corners)'>
+            <rect x='0' y='0' width='400' height='400' rx='15' ry='15' fill='rgba(50,50,50,1)' />
         </g>
-        <g opacity="1" transform="translate(270 315)  rotate(0 50 13)">
-            <mask fill="white">
-                <use xlink:href="#path_0"></use>
-            </mask>
-            <g mask="url(#bg-mask-0)">
-                <path fill-rule="evenodd" fill="url(#linear_0)" transform="translate(0 0)  rotate(0 14 13)" opacity="1"
-                    d="M26.98 1.44C26.41 0.98 25.61 0.78 24.86 0.83C24.11 0.86 23.44 1.11 22.79 1.37C22.14 1.64 21.52 1.97 20.95 2.36C19.81 3.13 18.84 4.1 18.03 5.14C16.41 7.25 15.31 9.62 14.45 12.04C13.62 14.45 12.81 16.93 12.91 19.53C12.95 20.17 13.03 20.81 13.25 21.44C13.32 21.65 13.42 21.86 13.53 22.06C12.91 22.61 12.29 23.12 11.68 23.51C11.24 23.79 10.44 24.13 10.44 24.13C10.44 24.13 10.36 24.12 10.31 24.09C10.02 24 9.59 23.72 9.17 23.4C8.76 23.08 8.33 22.69 7.92 22.27C7.51 21.86 7.08 21.39 6.73 20.95C6.36 20.51 6.02 20.03 5.69 19.55C5.04 18.57 4.46 17.54 3.96 16.46C2.98 14.31 2.34 12 2.09 9.64C2 9.06 1.98 8.45 1.94 7.87C1.92 7.31 1.94 6.74 1.99 6.18C2.12 5.08 2.42 4.01 2.98 3.15C3.53 2.28 4.34 1.63 5.42 1.32C6.5 0.99 7.62 1.08 8.71 1.57C9.79 2.06 10.76 2.91 11.58 3.86C12.42 4.82 13.15 5.91 13.73 7.04L13.73 7.06C13.76 7.12 13.85 7.15 13.92 7.13C14 7.1 14.03 7.02 14.01 6.96C13.55 5.74 12.93 4.59 12.17 3.51C11.4 2.45 10.46 1.45 9.25 0.76C8.64 0.42 7.96 0.17 7.25 0.06C6.97 0.02 6.69 0 6.42 0C5.98 0 5.54 0.05 5.11 0.14C3.71 0.42 2.46 1.24 1.66 2.32C0.85 3.4 0.42 4.66 0.19 5.92C-0.04 7.19 -0.02 8.48 0.05 9.75C0.19 12.3 0.76 14.82 1.73 17.22C2.22 18.42 2.8 19.58 3.5 20.69C4.2 21.81 5.02 22.85 5.93 23.83C6.85 24.78 7.83 25.74 9.15 26.34C9.48 26.49 9.85 26.58 10.23 26.63C10.62 26.67 11.01 26.61 11.36 26.51C12.07 26.32 12.69 25.98 13.28 25.61C14.09 25.1 14.84 24.51 15.54 23.89C15.84 23.61 16.14 23.34 16.43 23.06C16.48 23.02 16.53 22.97 16.58 22.92C17.49 22.04 18.33 21.1 19.15 20.16C20.86 18.14 22.43 16.04 23.86 13.85C25.28 11.67 26.62 9.43 27.64 7.04C28.15 5.86 28.43 4.49 28.08 3.18C27.91 2.53 27.57 1.9 26.98 1.44Z M14.6248 19.4581C14.6148 19.7381 14.6248 20.0081 14.6548 20.2681C14.6748 20.4881 14.7048 20.6981 14.7448 20.8881C15.4848 20.1481 16.1848 19.3481 16.8548 18.5381C18.4648 16.6081 19.9548 14.5681 21.3648 12.4881C22.0648 11.4481 22.7348 10.3881 23.3548 9.32814C24.1148 8.02814 24.8648 6.70814 25.2948 5.27814C25.3448 5.13814 25.3948 4.97814 25.4348 4.81814C25.5748 4.30814 25.6048 3.64814 24.9948 3.37814C24.1248 2.98814 22.8648 3.96814 22.2148 4.41814C21.3848 4.98814 20.6648 5.68814 20.0248 6.44814C19.2848 7.31814 18.6348 8.30814 18.0348 9.34814C17.7648 9.87814 17.4548 10.3981 17.2148 10.9581L16.8248 11.7881L16.4748 12.6381C16.2248 13.2081 16.0348 13.7881 15.8148 14.3681C15.5848 14.9481 15.3948 15.5081 15.2248 16.0781C14.8848 17.2181 14.6548 18.3681 14.6248 19.4581Z " />
-                <path fill-rule="evenodd" fill="url(#linear_1)" transform="translate(15 16)  rotate(0 8 3)" opacity="1"
-                    d="M6.57,6.34C6.42,6.39 6.27,6.44 6.12,6.48C5.97,6.52 5.84,6.54 5.67,6.57C5.35,6.64 5.03,6.68 4.71,6.72C4.06,6.8 3.43,6.81 2.82,6.77C2.18,6.72 1.57,6.58 1.05,6.35C1,6.4 0.95,6.45 0.9,6.51C0.61,6.8 0.3,7.08 0,7.36C0.86,7.78 1.83,7.97 2.78,7.99C3.5,8.01 4.22,7.95 4.91,7.82C5.61,7.7 6.32,7.55 6.98,7.29C8.3,6.78 9.54,6.15 10.75,5.46C11.96,4.77 13.12,4.02 14.21,3.16C15.3,2.31 16.32,1.36 17.07,0.21C17.11,0.15 17.09,0.07 17.03,0.02C17,0.01 16.97,0 16.94,0C16.9,0 16.85,0.02 16.82,0.06L16.81,0.07C16.01,1.12 14.95,1.98 13.84,2.74C12.72,3.5 11.53,4.18 10.32,4.79C9.09,5.39 7.83,5.94 6.57,6.34Z " />
-                <path fill-rule="evenodd" style="fill:#000000" transform="translate(40 6)  rotate(0 4.3262 6)"
-                    opacity="1" d="M8.65,13.93L8.65,11.82L2.52,11.82L2.52,0L0,0L0,13.93L8.65,13.93Z " />
-                <path fill-rule="evenodd" style="fill:#000000" transform="translate(49 6)  rotate(0 6 6)" opacity="1"
-                    d="M2.94,0L0.05,0L4.4,6.97L0,13.93L2.91,13.93L6.01,8.87L6.12,8.87L9.22,13.93L12.14,13.93L7.78,6.97L12.07,0L9.2,0L6.12,5.1L6.01,5.1L2.94,0Z " />
-                <path fill-rule="evenodd" style="fill:#000000" transform="translate(62 6)  rotate(0 5 6)" opacity="1"
-                    d="M0 0L0 13.93L4.72 13.93C6.13 13.93 7.34 13.65 8.35 13.1C9.36 12.54 10.13 11.74 10.66 10.7C11.2 9.65 11.47 8.4 11.47 6.95C11.47 5.51 11.21 4.26 10.67 3.22C10.14 2.19 9.37 1.39 8.37 0.84C7.38 0.28 6.19 0 4.81 0L0 0Z M8.4817 4.30398C8.1517 3.59398 7.6717 3.06398 7.0317 2.71398C6.4017 2.36398 5.6117 2.18398 4.6717 2.18398L2.5217 2.18398L2.5217 11.754L4.5917 11.754C5.5617 11.754 6.3717 11.574 7.0217 11.224C7.6717 10.864 8.1517 10.324 8.4817 9.62398C8.8117 8.90398 8.9717 8.02398 8.9717 6.95398C8.9717 5.88398 8.8117 5.00398 8.4817 4.30398Z " />
-                <g opacity="1" transform="translate(74 6)  rotate(0 6.4604 6)">
-                    <path fill-rule="evenodd" style="fill:#000000" transform="translate(0 0)  rotate(0 6.4604 6)"
-                        opacity="1"
-                        d="M6.4,2.86L6.51,2.86L10.23,13.93L12.92,13.93L8.01,0L4.9,0L0,13.93L2.69,13.93L6.4,2.86Z " />
-                    <path fill-rule="evenodd" style="fill:#000000" transform="translate(2 8)  rotate(0 3 1)" opacity="1"
-                        d="M0,2.03L7.34,2.03L7.34,0L0,0L0,2.03Z " />
-                </g>
-                <path fill-rule="evenodd" style="fill:#000000" transform="translate(87 6)  rotate(0 6 7.157455)"
-                    opacity="1"
-                    d="M6.4 14.31C7.61 14.31 8.7 14.03 9.67 13.46C10.63 12.9 11.39 12.08 11.95 11.02C12.51 9.94 12.79 8.66 12.79 7.16C12.79 5.66 12.51 4.37 11.95 3.31C11.39 2.24 10.63 1.42 9.67 0.85C8.7 0.28 7.61 0 6.4 0C5.18 0 4.08 0.28 3.12 0.85C2.16 1.42 1.4 2.24 0.84 3.31C0.28 4.37 0 5.66 0 7.16C0 8.65 0.28 9.94 0.84 11.01C1.4 12.07 2.16 12.89 3.12 13.46C4.08 14.03 5.18 14.31 6.4 14.31Z M10.2553 7.15563C10.2553 6.09563 10.0953 5.20563 9.7553 4.48563C9.4353 3.75563 8.9853 3.20563 8.4053 2.82563C7.8253 2.45563 7.1553 2.26563 6.3953 2.26563C5.6353 2.26563 4.9753 2.45563 4.3953 2.82563C3.8153 3.20563 3.3553 3.75563 3.0253 4.48563C2.6953 5.20563 2.5353 6.09563 2.5353 7.15563C2.5353 8.21563 2.6953 9.10563 3.0253 9.83563C3.3553 10.5656 3.8153 11.1156 4.3953 11.4956C4.9753 11.8656 5.6353 12.0456 6.3953 12.0456C7.1553 12.0456 7.8253 11.8656 8.4053 11.4956C8.9853 11.1156 9.4353 10.5656 9.7553 9.83563C10.0953 9.10563 10.2553 8.21563 10.2553 7.15563Z " />
-            </g>
-        </g>
-        <g opacity="1" transform="translate(25 25) ">
-            <foreignObject width="360" height="60">
+        <g opacity='1' transform='translate(25 25) '>
+            <foreignObject width='360' height='60'>
 
-                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;padding:0;">
-                    <p style="font-size:24px;margin:0;color:#000;">
+                <body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;'>
+                    <p style='font-size:24px;margin:0;color:#fff;'>
                         一个基于人脸识别的 pfp 生成 NFT 项目和工具
                     </p>
                 </body>
             </foreignObject>
         </g>
-        <g opacity="1" transform="translate(25 99) ">
-            <foreignObject width="360" height="210">
+        <g opacity='1' transform='translate(25 99) '>
+            <foreignObject width='360' height='210'>
 
-                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;padding:0;">
-                    <p style="font-size:16px;margin:0;color:#666;">
+                <body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;'>
+                    <p style='font-size:16px;margin:0;color:#fff;'>
                         一个基于人脸识别的 pfp 生成 NFT 项目和工具，通过人脸识别来组装各种卡通组件，定制自己的 PFP
                     </p>
                 </body>
             </foreignObject>
         </g>
-        <g xmlns="http://www.w3.org/2000/svg" transform="translate(25 280) ">
-            <foreignObject width="350" height="100">
+        <g xmlns='http://www.w3.org/2000/svg' transform='translate(25 280) '>
+            <foreignObject width='350' height='100'>
 
-                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;padding:0;padding-top:5px;">
-                    <div style="margin-bottom:15px;">
+                <body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;padding-top:5px;'>
+                    <div style='margin-bottom:15px;'>
                         <p
-                            style="display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;">
-                            <span style="color:rgba(255,255,255,0.6)">Approved</span>
+                            style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>
+                            <span style='color:rgba(255,255,255,0.6)'>Approved</span>
                             YES
                         </p>
                     </div>
-                    <div style="margin-bottom:12px;">
+                    <div style='margin-bottom:12px;'>
                         <p
-                            style="display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;">
-                            <span style="color:rgba(255,255,255,0.6)">Idea by</span>
+                            style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>
+                            <span style='color:rgba(255,255,255,0.6)'>Idea by</span>
                             芋头
                         </p>
                     </div>
                     <div>
                         <p
-                            style="font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;">
-                            0x2a8a10319b42c57e81868e8bf8dfef6ea833784c </p>
+                            style='font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>
+                            0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                        </p>
                     </div>
 
                 </body>
             </foreignObject>
         </g>
 
-        <text text-rendering="optimizeSpeed">
-            <textPath startOffset="-100%" fill="#000" font-family="'Courier New', monospace" font-size="12px"
-                font-weight="500" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#text-path-a">
+        <text text-rendering='optimizeSpeed'>
+            <textPath startOffset='-100%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
+                font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
                 0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
-                <animate additive="sum" attributeName="startOffset" from="0%" to="100%" begin="0s" dur="30s"
-                    repeatCount="indefinite" />
+                <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
+                    repeatCount='indefinite' />
             </textPath>
-            <textPath startOffset="0%" fill="#000" font-family="'Courier New', monospace" font-size="12px"
-                font-weight="500" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#text-path-a">
+            <textPath startOffset='0%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
+                font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
                 0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
-                <animate additive="sum" attributeName="startOffset" from="0%" to="100%" begin="0s" dur="30s"
-                    repeatCount="indefinite" />
+                <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
+                    repeatCount='indefinite' />
+            </textPath>
+            <textPath startOffset='-50%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
+                font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
+                0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
+                    repeatCount='indefinite' />
+            </textPath>
+            <textPath startOffset='50%' fill='#fff' font-family='Courier New, monospace' font-size='12px'
+                font-weight='500' xmlns:xlink='http://www.w3.org/1999/xlink' xlink:href='#text-path-a'>
+                0x2a8a10319b42c57e81868e8bf8dfef6ea833784c
+                <animate additive='sum' attributeName='startOffset' from='0%' to='100%' begin='0s' dur='30s'
+                    repeatCount='indefinite' />
             </textPath>
         </text>
     </g>

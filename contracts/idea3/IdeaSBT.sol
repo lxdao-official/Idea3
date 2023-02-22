@@ -1,16 +1,33 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./IdeaNFT.sol";
-import "./POAP.sol";
+import "../sbt/SBT.sol";
 import "./Metadata.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "hardhat/console.sol";
+import "../lib/ownable.sol";
+import "./IIdeaSBT.sol";
 
-contract Idea is IdeaNFT, IdeaMetadata {
+contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
     mapping(uint256 => IdeaStruct) public ideas;
 
-    POAP sbt;
+    address private _approver;
+    // open service fee
+    bool private _feeOn = false;
+    uint256 private _fee = 0.1 ether;
+
+    function setApprover(address approver) public onlyOwner {
+        _approver = approver;
+    }
+
+    function setFeeOn(bool feeOn) public onlyOwner {
+        _feeOn = feeOn;
+    }
+
+    function setFee(uint256 fee) public onlyOwner {
+        _fee = fee;
+    }
+
+    constructor() ERC721("IdeaSBT", "IdeaSBT") {}
 
     uint256 public ideaCount;
 
@@ -32,16 +49,18 @@ contract Idea is IdeaNFT, IdeaMetadata {
     );
 
     event IdeaApproved(uint256 id);
-
-    constructor(address _sbt) {
-        sbt = POAP(_sbt);
-    }
+    event IdeaUnapproved(uint256 id);
 
     function submitIdea(
         string memory title,
         string memory content,
         string memory submitterName
-    ) public {
+    ) public payable {
+        if (_feeOn) {
+            if (balanceOf(owner) > 1) {
+                require(msg.value >= 0.01 ether, "Fee not paid");
+            }
+        }
         uint256 id = ideaCount;
         ideas[id] = IdeaStruct(
             id,
@@ -53,15 +72,22 @@ contract Idea is IdeaNFT, IdeaMetadata {
         );
         _safeMint(msg.sender, id);
         ideaCount++;
-
         emit IdeaSubmitted(id, title, content, msg.sender, submitterName);
     }
 
-    function approveIdea(uint256 id) public onlyOwner {
+    function approveIdea(uint256 id) public returns (address) {
+        require(_approver == msg.sender, "Only approver can approve ideas");
         require(ideas[id].approved == false, "Idea already approved");
         ideas[id].approved = true;
-        sbt.mint(msg.sender, id);
         emit IdeaApproved(id);
+        return ideas[id].submitter;
+    }
+
+    function unapproveIdea(uint256 id) public {
+        require(_approver == msg.sender, "Only approver can unapprove ideas");
+        require(ideas[id].approved == true, "Idea already unapproved");
+        ideas[id].approved = false;
+        emit IdeaUnapproved(id);
     }
 
     function getIdea(uint256 id)
@@ -72,7 +98,8 @@ contract Idea is IdeaNFT, IdeaMetadata {
             string memory,
             address,
             string memory,
-            bool
+            bool,
+            uint256
         )
     {
         return (
@@ -80,16 +107,22 @@ contract Idea is IdeaNFT, IdeaMetadata {
             ideas[id].content,
             ideas[id].submitter,
             ideas[id].submitterName,
-            ideas[id].approved
+            ideas[id].approved,
+            ideas[id].id
         );
     }
 
     function tokenURI(uint256 tokenId)
         public
         view
-        override
+        override(ERC721, IIdeaSBT)
         returns (string memory)
     {
+        require(_exists(tokenId), "tokenId doesn't exist");
+        return _createTokenURI(ideas[tokenId]);
+    }
+
+    function getTokenURI(uint256 tokenId) public view returns (string memory) {
         require(_exists(tokenId), "tokenId doesn't exist");
         return _createTokenURI(ideas[tokenId]);
     }

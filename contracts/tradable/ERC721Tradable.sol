@@ -75,4 +75,16 @@ abstract contract ERC721Tradable is ERC721 {
     {
         return _orderForTokenId[tokenId];
     }
+
+    function ordersOfTokenIds(uint256 tokenIds)
+        public
+        view
+        returns (TraderOrder[] memory)
+    {
+        TraderOrder[] memory orders = new TraderOrder[](tokenIds);
+        for (uint256 i = 0; i < tokenIds; i++) {
+            orders[i] = _orderForTokenId[i];
+        }
+        return orders;
+    }
 }
