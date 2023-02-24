@@ -1,37 +1,40 @@
 # Idea3 - Publish, Own, and Sell Your Ideas on the Blockchain
 
-Idea3 is a platform for publishing, owning, and selling ideas on the blockchain.
+## our mission
 
-测试环境地址：[](https://idea3-frontend.vercel.app/)
+Make more ideas reality
+
+Share ideas, discuss ideas, get $IDEA and support from the community, make it reality together.
 
 合约代码地址：[](https://github.com/lxdao-official/Idea3)
 
 前端代码地址：[](https://github.com/lxdao-official/idea3-frontend)
 
-### 他的主流程如下：
+### 他的主要模块如下：
 
-1. 将你的点子发布到区块链上。
-2. 你的点子将会铸造成为一个 SBT，此 SBT 代表你对这个点子的拥有权。
-3. 通过 LXDAO 的认证（approve），点子将会被铸造为一个正式的新的 ERC721 NFT.
-4. 你可以通过合约内置的交易功能，将你的点子直接出售给其他人，也可以通过正常的 NFT 交易市场出售你的 NFT。
-5. 此 ERC721 NFT 可以被任何人购买，持有此 NFT 者代表获得此 NFT 的使用权。
-6. 即使你的 NFT 被其他人购买，你仍然是此 NFT 的原始提交者，你的地址信息将永久铸造在 NFT 头像和属性中。
+1. 内容合约
+   1. 将你的点子发布到区块链上。
+   1. 你的点子将会铸造成为一个 SBT（IdeaSBT)，此 SBT 代表你对这个点子的拥有权。
+   1. 所有人都可以对你的点子进行“补充”，补充的内容将会被铸造为一个新的 SBT（SubIdeaSBT）。
+   1. 所有人都可以对你的点子进行“点赞”，点赞的内容将会被铸造为一个新的 SBT（LikeIdeaSBT）。
+2. 治理合约
+   1. 每周举行一次社区投票，通过投票的优秀的 idea 会被官方 approve。
+   1. approve 的同时，会从 $IDEA 矿池中挖出一定数量的 $IDEA 锁定在此 idea 中作为对优秀 idea 的奖励。
+   1. 被 approve 的 idea 会被铸造成精美的 ERC721 NFT（GoodIdeaNFT），并在官网推荐，此 NFT 可以出售。
+3. 捐赠合约
+   1. 所有人都可以使用 $IDEA 为某个 idea 捐赠，捐赠的 $IDEA 同样锁定在 idea 中。
+   1. 捐赠的同时，$IDEA 的配捐池会以一定比例配捐。
+4. 锁仓合约
+   1. 每个 idea 内锁定的 $IDEA 40% 属于发布者，60% 属于参与者（补充和点赞，这 70%怎么分需要再设计）。
+   1. 行为发生 7 天后，发布者和参与者可以 claim 属于自己份额的代币。
+5. 众筹合约：
+   1. 暂不设计
+6. 代币合约：
+   1. $IDEA 代币是一个 ERC20 代币，用于在 idea3 平台内部流通。
+   1. 锁仓和解锁机制
 
-### 此合约包含：
+### 关于合约的设计
 
-1. ERC721 SBT 合约扩展。
-2. ERC721 可交易 合约扩展。
-3. ERC721 链上动态 MetaData 合约扩展。
-4. idea3 主合约。
-
-### dapps 功能：
-
-1. 提交点子
-2. 点子列表（已提交，已认证）
-3. 管理员 approve 入口
-4. list 点子
-5. buy 点子
-
-### the nft will be like this
-
-<img src="https://openseauserdata.com/files/395e804d75f647588c5862795f4ddd73.svg" width="350" />
+1. 递进式功能叠加，从基础模块开始，一步一步叠加合约。
+2. 沉淀基础合约，如 sbt 、svg metadata 等。
+3. 沉淀基础模块，如 topic、like、comment 等，并由此模块构建更高级的模块，如 idea、subidea、likeidea 等。
