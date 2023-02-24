@@ -113,7 +113,7 @@ abstract contract IdeaMetadata {
                                 _3,
                                 idea.approved ? "Yes" : "No",
                                 _4,
-                                idea.submitterName,
+                                //,
                                 _animate
                             )
                         )

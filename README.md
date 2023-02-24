@@ -12,24 +12,28 @@ Share ideas, discuss ideas, get $IDEA and support from the community, make it re
 
 ### 他的主要模块如下：
 
+1. DID 合约
+   1. 用户首先需要 mint 一个 did，did 会被铸造成为一个 ERC721 NFT（DIDNFT）。
+   2. 将 did 和用户的钱包地址绑定，绑定后即可互相解析。
+   3. 被绑定的 did nft 不可转移，未绑定的 did nft 可以转移，已绑定的 did nft 可以解绑。
 1. 内容合约
    1. 将你的点子发布到区块链上。
    1. 你的点子将会铸造成为一个 SBT（IdeaSBT)，此 SBT 代表你对这个点子的拥有权。
    1. 所有人都可以对你的点子进行“补充”，补充的内容将会被铸造为一个新的 SBT（SubIdeaSBT）。
    1. 所有人都可以对你的点子进行“点赞”，点赞的内容将会被铸造为一个新的 SBT（LikeIdeaSBT）。
-2. 治理合约
+1. 治理合约
    1. 每周举行一次社区投票，通过投票的优秀的 idea 会被官方 approve。
    1. approve 的同时，会从 $IDEA 矿池中挖出一定数量的 $IDEA 锁定在此 idea 中作为对优秀 idea 的奖励。
    1. 被 approve 的 idea 会被铸造成精美的 ERC721 NFT（GoodIdeaNFT），并在官网推荐，此 NFT 可以出售。
-3. 捐赠合约
+1. 捐赠合约
    1. 所有人都可以使用 $IDEA 为某个 idea 捐赠，捐赠的 $IDEA 同样锁定在 idea 中。
    1. 捐赠的同时，$IDEA 的配捐池会以一定比例配捐。
-4. 锁仓合约
+1. 锁仓合约
    1. 每个 idea 内锁定的 $IDEA 40% 属于发布者，60% 属于参与者（补充和点赞，这 70%怎么分需要再设计）。
    1. 行为发生 7 天后，发布者和参与者可以 claim 属于自己份额的代币。
-5. 众筹合约：
+1. 众筹合约：
    1. 暂不设计
-6. 代币合约：
+1. 代币合约：
    1. $IDEA 代币是一个 ERC20 代币，用于在 idea3 平台内部流通。
    1. 锁仓和解锁机制
 
