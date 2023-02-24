@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../sbt/SBT.sol";
+import "../sbt/SBT721.sol";
 import "./Metadata.sol";
-import "hardhat/console.sol";
 import "../lib/ownable.sol";
 import "./IIdeaSBT.sol";
 
-contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
+contract IdeaSBT is IdeaMetadata, SBT721, Ownable, IIdeaSBT {
     mapping(uint256 => IdeaStruct) public ideas;
 
     address private _approver;
+    bool private _canEdit = true;
     // open service fee
     bool private _feeOn = false;
     uint256 private _fee = 0.1 ether;
@@ -27,6 +27,10 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         _fee = fee;
     }
 
+    function setCanEdit(bool canEdit) public onlyOwner {
+        _canEdit = canEdit;
+    }
+
     constructor() ERC721("Idea3SBT", "Idea3SBT") {}
 
     uint256 public ideaCount;
@@ -39,6 +43,8 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         address submitter;
         string submitterName;
         bool approved;
+        uint256 createAt;
+        uint256 updateAt;
     }
 
     event IdeaSubmitted(
@@ -72,7 +78,9 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
             markdown,
             msg.sender,
             submitterName,
-            false
+            false,
+            block.timestamp,
+            block.timestamp
         );
         _safeMint(msg.sender, id);
         ideaCount++;
@@ -111,6 +119,8 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
             address,
             string memory,
             bool,
+            uint256,
+            uint256,
             uint256
         )
     {
@@ -121,7 +131,9 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
             ideas[id].submitter,
             ideas[id].submitterName,
             ideas[id].approved,
-            ideas[id].id
+            ideas[id].id,
+            ideas[id].createAt,
+            ideas[id].updateAt
         );
     }
 
@@ -163,10 +175,12 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
             ideas[id].submitter == msg.sender,
             "Only submitter can edit idea"
         );
+        require(_canEdit, "Editing is disabled");
         ideas[id].title = title;
         ideas[id].desc = desc;
         ideas[id].markdown = markdown;
         ideas[id].submitterName = submitterName;
+        ideas[id].updateAt = block.timestamp;
     }
 
     function editIdeaByOwner(
@@ -180,5 +194,6 @@ contract IdeaSBT is IdeaMetadata, SBT, Ownable, IIdeaSBT {
         ideas[id].desc = desc;
         ideas[id].markdown = markdown;
         ideas[id].submitterName = submitterName;
+        ideas[id].updateAt = block.timestamp;
     }
 }

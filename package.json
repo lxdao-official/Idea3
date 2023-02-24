@@ -8,7 +8,8 @@
     "coverage": "npx hardhat coverage",
     "solhint": "solhint src/**/*.sol",
     "deploy:localhost": "npx hardhat run --network localhost scripts/deploy-idea3.ts",
-    "deploy:goerli": "npx hardhat run --network goerli scripts/deploy-idea3.ts"
+    "deploy:goerli": "npx hardhat run --network goerli scripts/deploy-idea3.ts",
+    "deploy:polygon": "npx hardhat run --network polygon scripts/deploy-idea3.ts"
   },
   "license": "MIT",
   "devDependencies": {

@@ -52,6 +52,10 @@ const config: HardhatUserConfig = {
       url: "https://goerli.infura.io/v3/f4dd6db18a6f4ea98151892c0fa8e074",
       accounts: [process.env.PRIVATE_KEY_goerli!],
     },
+    polygon: {
+      url: "https://rpc-mainnet.maticvigil.com",
+      accounts: [process.env.PRIVATE_KEY_POLYGON!],
+    },
   },
   gasReporter: {
     enabled: true,
