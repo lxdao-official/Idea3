@@ -41,6 +41,8 @@ contract SubIdeaSBT is SBT1155, Ownable {
         uint256 ideaId;
         string markdown;
         address submitter;
+        uint256 createAt;
+        uint256 updateAt;
     }
 
     event SubIdeaSubmitted(
@@ -63,7 +65,9 @@ contract SubIdeaSBT is SBT1155, Ownable {
             subideaId,
             ideaId,
             markdown,
-            msg.sender
+            msg.sender,
+            block.timestamp,
+            block.timestamp
         );
         _mint(msg.sender, ideaId, 1, "");
         subideaCount += 1;
@@ -97,5 +101,6 @@ contract SubIdeaSBT is SBT1155, Ownable {
             "not the submitter"
         );
         idea_subideas[ideaId][subideaId].markdown = markdown;
+        idea_subideas[ideaId][subideaId].updateAt = block.timestamp;
     }
 }
