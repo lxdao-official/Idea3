@@ -17,16 +17,30 @@ contract IdeaDID is ERC721, Ownable, Price, Metadata, DID {
 
     uint256 private _nextTokenId = 1;
 
-    constructor() ERC721("IdeaDID", "IdeaDID") {
-        name_suffix = ".idea3.link";
+    constructor(bool _isFree) ERC721("IdeaDID", "IdeaDID") {
+        name_suffix = ".idea";
         description = "Idea3 DID";
         image_prefix = "";
+        if (_isFree) {
+            setIsFree();
+        } else {
+            uint256[] memory _rentPrices = new uint256[](5);
+            _rentPrices[0] = 1 ether;
+            _rentPrices[1] = 0.1 ether;
+            _rentPrices[2] = 0.05 ether;
+            _rentPrices[3] = 0.01 ether;
+            _rentPrices[4] = 0.005 ether;
+            initializePrice(_rentPrices);
+        }
+    }
+
+    function setIsFree() public onlyOwner {
         uint256[] memory _rentPrices = new uint256[](5);
-        _rentPrices[0] = 1 ether;
-        _rentPrices[1] = 0.1 ether;
-        _rentPrices[2] = 0.05 ether;
-        _rentPrices[3] = 0.01 ether;
-        _rentPrices[4] = 0.005 ether;
+        _rentPrices[0] = 0 ether;
+        _rentPrices[1] = 0 ether;
+        _rentPrices[2] = 0 ether;
+        _rentPrices[3] = 0 ether;
+        _rentPrices[4] = 0 ether;
         initializePrice(_rentPrices);
     }
 

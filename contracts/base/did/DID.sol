@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+import "./IDID.sol";
 import "../lib/StringUtils.sol";
 import "../lib/ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-abstract contract DID is Ownable {
+abstract contract DID is Ownable, IDID {
     mapping(bytes32 => uint256) public didhashToTokenId;
     mapping(uint256 => string) public tokenIdToDid;
 
@@ -65,7 +66,7 @@ abstract contract DID is Ownable {
         returns (string memory)
     {
         string memory did = tokenIdToDid[tokenId];
-        return string(abi.encodePacked("did:", did));
+        return did;
     }
 
     function resolveDidToAddress(string calldata did)

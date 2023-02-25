@@ -6,16 +6,22 @@ import "./IdeaImage.sol";
 import "../base/lib/ownable.sol";
 import "./IIdeaSBT.sol";
 import "../base/metadata/DynamicMetadata.sol";
+import "../base/did/IDID.sol";
+import "../base/lib/StringUtils.sol";
 
 contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
     address private _approver;
+    bool private _checkDid = true;
     // open service fee
     bool private _feeOn = false;
     uint256 private _fee = 0.1 ether;
 
+    IDID private _did;
     mapping(uint256 => bool) public isIdeaApproved;
 
-    constructor() ERC721("Idea3SBT", "Idea3SBT") {}
+    constructor(address _didAddress) ERC721("Idea3SBT", "Idea3SBT") {
+        _did = IDID(_didAddress);
+    }
 
     event IdeaApproved(uint256 id);
     event IdeaUnapproved(uint256 id);
@@ -29,6 +35,20 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         uint256 createAt;
         uint256 updateAt;
         bool approved;
+        string submitterDID;
+    }
+
+    function getAddressDid(address address_)
+        public
+        view
+        returns (string memory)
+    {
+        string memory didstr = _did.resolveAddressToDid(address_);
+        if (StringUtils.isEmpty(didstr)) {
+            return StringUtils.addressToString(address_);
+        } else {
+            return didstr;
+        }
     }
 
     function submitIdea(
@@ -36,6 +56,12 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         string memory desc,
         string memory markdown
     ) public payable {
+        // check did
+        if (_checkDid) {
+            uint256 tokenId = _did.resolveAddressToTokenId(msg.sender);
+            require(tokenId > 0, "DID not registered");
+        }
+
         if (_feeOn) {
             if (balanceOf(owner) > 1) {
                 require(msg.value >= 0.01 ether, "Fee not paid");
@@ -68,7 +94,8 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
             topic.submitter,
             topic.createAt,
             topic.updateAt,
-            isIdeaApproved[id]
+            isIdeaApproved[id],
+            getAddressDid(topic.submitter)
         );
         return idea;
     }
@@ -154,7 +181,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         image = _createImage(
             _tokenId,
             idea.submitter,
-            StringUtils.addressToString(idea.submitter),
+            getAddressDid(idea.submitter),
             idea.title,
             idea.desc,
             idea.approved
@@ -200,5 +227,9 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
 
     function setCanEdit(bool canEdit) public onlyOwner {
         _canEdit = canEdit;
+    }
+
+    function setCheckDid(bool checkDid) public onlyOwner {
+        _checkDid = checkDid;
     }
 }

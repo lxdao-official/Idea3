@@ -2,6 +2,23 @@
 pragma solidity ^0.8.0;
 
 library StringUtils {
+    function isEmpty(string memory str) internal pure returns (bool) {
+        return bytes(str).length == 0;
+    }
+
+    /**
+     * @dev Compares two strings and returns true iff they are equal.
+     */
+    function equal(string memory a, string memory b)
+        internal
+        pure
+        returns (bool)
+    {
+        return
+            keccak256(abi.encodePacked((a))) ==
+            keccak256(abi.encodePacked((b)));
+    }
+
     /**
      * @dev Returns the length of a given string
      *

@@ -73,17 +73,11 @@ abstract contract IdeaImage {
             "<rect x='0' y='0' width='400' height='400' rx='15' ry='15' fill='rgba(40,40,40,1)' />"
             "</g>"
             "<g opacity='1' transform='translate(25 25) '>"
-            "<foreignObject width='360' height='60'>"
+            "<foreignObject width='360' height='250'>"
             "<body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;'>"
             "<p style='font-size:24px;margin:0;color:#fff;'>";
-        string memory _sec = "</p>"
-        "</body>"
-        "</foreignObject>"
-        "</g>"
-        "<g opacity='1' transform='translate(25 99) '>"
-        "<foreignObject width='360' height='210'>"
-        "<body xmlns='http://www.w3.org/1999/xhtml' style='margin:0;padding:0;'>"
-        "<p style='font-size:16px;margin:0;color:#fff;'>";
+        string
+            memory _sec = "</p> <p style='font-size:14px;margin:0;color:#fff;margin-top:16px;'>";
         string memory _3 = "</p>"
         "</body>"
         "</foreignObject>"
@@ -108,7 +102,9 @@ abstract contract IdeaImage {
                             abi.encodePacked(
                                 abi.encodePacked(
                                     _start,
-                                    ideaId,
+                                    "#",
+                                    Strings.toString(ideaId),
+                                    " ",
                                     _title,
                                     _sec,
                                     _desc
@@ -126,44 +122,4 @@ abstract contract IdeaImage {
                 )
             );
     }
-
-    // function _createTokenURI(IdeaSBT.IdeaStruct memory idea)
-    //     internal
-    //     view
-    //     virtual
-    //     returns (string memory)
-    // {
-    //     string memory _addr = StringUtils.addressToString(idea.submitter);
-    //     bytes memory _id = abi.encodePacked(
-    //         "#",
-    //         Strings.toString(idea.id),
-    //         " "
-    //     );
-    //     bytes memory image = _createImage(idea, _id, _addr);
-
-    //     return
-    //         string(
-    //             abi.encodePacked(
-    //                 "data:application/json;base64,",
-    //                 Base64.encode(
-    //                     bytes(
-    //                         abi.encodePacked(
-    //                             '{"name": "',
-    //                             _id,
-    //                             idea.title,
-    //                             '","description": "',
-    //                             idea.desc,
-    //                             '", "image": "',
-    //                             image,
-    //                             '", "attributes": [{"trait_type": "Approved", "value": "',
-    //                             idea.approved ? "Yes" : "No",
-    //                             '"},{"trait_type": "Submitter", "value": "',
-    //                             _addr,
-    //                             '"}] }'
-    //                         )
-    //                     )
-    //                 )
-    //             )
-    //         );
-    // }
 }
