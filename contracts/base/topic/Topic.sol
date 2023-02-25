@@ -30,6 +30,8 @@ abstract contract Topic is SBT721 {
         address submitter
     );
 
+    event MetadataUpdate(uint256 _tokenId);
+
     function _submit(
         string memory title,
         string memory desc,
@@ -66,5 +68,6 @@ abstract contract Topic is SBT721 {
         topics[id].desc = desc;
         topics[id].markdown = markdown;
         topics[id].updateAt = block.timestamp;
+        emit MetadataUpdate(id);
     }
 }
