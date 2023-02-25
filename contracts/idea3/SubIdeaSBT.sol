@@ -1,8 +1,8 @@
 /**
  * this contract is used to add new idea addition to idea
  */
-import "../sbt/SBT1155.sol";
-import "../lib/ownable.sol";
+import "../base/sbt/SBT1155.sol";
+import "../base/lib/ownable.sol";
 import "./IIdeaSBT.sol";
 
 contract SubIdeaSBT is SBT1155, Ownable {

@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../lib/ownable.sol";
-import "../lib/StringUtils.sol";
-import "../did/Price.sol";
-import "../did/Metadata.sol";
-import "../did/DID.sol";
+import "../base/lib/ownable.sol";
+import "../base/lib/StringUtils.sol";
+import "../base/did/Price.sol";
+import "../base/did/Metadata.sol";
+import "../base/did/DID.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 

@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../topic/Topic.sol";
-import "./Metadata.sol";
-import "../lib/ownable.sol";
+import "../base/topic/Topic.sol";
+import "./IdeaImage.sol";
+import "../base/lib/ownable.sol";
 import "./IIdeaSBT.sol";
+import "../base/metadata/DynamicMetadata.sol";
 
-contract IdeaSBT is IdeaMetadata, Topic, Ownable, IIdeaSBT {
+contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
     address private _approver;
     // open service fee
     bool private _feeOn = false;
@@ -33,15 +34,14 @@ contract IdeaSBT is IdeaMetadata, Topic, Ownable, IIdeaSBT {
     function submitIdea(
         string memory title,
         string memory desc,
-        string memory markdown,
-        string memory submitterName
+        string memory markdown
     ) public payable {
         if (_feeOn) {
             if (balanceOf(owner) > 1) {
                 require(msg.value >= 0.01 ether, "Fee not paid");
             }
         }
-        uint256 id = _submit(title, desc, markdown);
+        _submit(title, desc, markdown);
     }
 
     function approveIdea(uint256 id) public {
@@ -89,8 +89,7 @@ contract IdeaSBT is IdeaMetadata, Topic, Ownable, IIdeaSBT {
         uint256 id,
         string memory title,
         string memory desc,
-        string memory markdown,
-        string memory submitterName
+        string memory markdown
     ) public {
         TopicStruct memory topic = _getTopic(id);
         require(topic.submitter == msg.sender, "Only submitter can edit idea");
@@ -113,7 +112,77 @@ contract IdeaSBT is IdeaMetadata, Topic, Ownable, IIdeaSBT {
         returns (string memory)
     {
         require(_exists(tokenId), "tokenId doesn't exist");
-        return _createTokenURI(getIdea(tokenId));
+        return _dynamicTokenURI(tokenId);
+    }
+
+    ///@dev DynamicMetadata
+    function _getName(uint256 _tokenId)
+        internal
+        view
+        virtual
+        override
+        returns (string memory name)
+    {
+        name = string(
+            abi.encodePacked(
+                "#",
+                Strings.toString(_tokenId),
+                " ",
+                getIdea(_tokenId).title
+            )
+        );
+    }
+
+    function _getDescription(uint256 _tokenId)
+        internal
+        view
+        virtual
+        override
+        returns (string memory desc)
+    {
+        desc = getIdea(_tokenId).desc;
+    }
+
+    function _getImage(uint256 _tokenId)
+        internal
+        view
+        virtual
+        override
+        returns (string memory image)
+    {
+        IdeaStruct memory idea = getIdea(_tokenId);
+        image = _createImage(
+            _tokenId,
+            idea.submitter,
+            StringUtils.addressToString(idea.submitter),
+            idea.title,
+            idea.desc,
+            idea.approved
+        );
+    }
+
+    function _getExternalUrl(uint256 _tokenId)
+        internal
+        view
+        virtual
+        override
+        returns (string memory url)
+    {}
+
+    function _getAttributes(uint256 _tokenId)
+        internal
+        view
+        virtual
+        override
+        returns (string[] memory keys, string[] memory values)
+    {
+        IdeaStruct memory idea = getIdea(_tokenId);
+        keys = new string[](2);
+        values = new string[](2);
+        keys[0] = "submitter";
+        values[0] = StringUtils.addressToString(idea.submitter);
+        keys[1] = "approved";
+        values[1] = idea.approved ? "YES" : "NO";
     }
 
     /// @dev onlyOwner functions

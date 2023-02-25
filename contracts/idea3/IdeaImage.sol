@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import "../lib/StringUtils.sol";
+import "../base/lib/StringUtils.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-import "./IdeaSBT.sol";
-
-abstract contract IdeaMetadata {
+abstract contract IdeaImage {
     function _animateText(string memory _addr)
         internal
         pure
@@ -52,11 +50,16 @@ abstract contract IdeaMetadata {
     }
 
     function _createImage(
-        IdeaSBT.IdeaStruct memory idea,
-        bytes memory _id,
-        string memory _addr
-    ) internal pure virtual returns (bytes memory) {
-        string memory _animate = _animateText(_addr);
+        uint256 ideaId,
+        address _addr,
+        string memory _name,
+        string memory _title,
+        string memory _desc,
+        bool isApproved
+    ) internal pure virtual returns (string memory) {
+        string memory _animate = _animateText(
+            StringUtils.addressToString(_addr)
+        );
         string
             memory _start = "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='1024' height='1024' viewBox='0 0 400 400' fill='none'>"
             "<defs>"
@@ -97,64 +100,26 @@ abstract contract IdeaMetadata {
         "<p style='display:inline;font-size:12px;margin:0;color:#fff;background:rgba(0,0,0,0.6);border-radius:8px;padding:7px 10px;'>"
         "<span style='color:rgba(255,255,255,0.6)'>Idea by </span>";
         return
-            abi.encodePacked(
-                "data:image/svg+xml;base64,",
-                Base64.encode(
-                    bytes(
-                        abi.encodePacked(
-                            abi.encodePacked(
-                                _start,
-                                _id,
-                                idea.title,
-                                _sec,
-                                idea.desc
-                            ),
-                            abi.encodePacked(
-                                _3,
-                                idea.approved ? "Yes" : "No",
-                                _4,
-                                //,
-                                _animate
-                            )
-                        )
-                    )
-                )
-            );
-    }
-
-    function _createTokenURI(IdeaSBT.IdeaStruct memory idea)
-        internal
-        view
-        virtual
-        returns (string memory)
-    {
-        string memory _addr = addressToString(idea.submitter);
-        bytes memory _id = abi.encodePacked(
-            "#",
-            Strings.toString(idea.id),
-            " "
-        );
-        bytes memory image = _createImage(idea, _id, _addr);
-
-        return
             string(
                 abi.encodePacked(
-                    "data:application/json;base64,",
+                    "data:image/svg+xml;base64,",
                     Base64.encode(
                         bytes(
                             abi.encodePacked(
-                                '{"name": "',
-                                _id,
-                                idea.title,
-                                '","description": "',
-                                idea.desc,
-                                '", "image": "',
-                                image,
-                                '", "attributes": [{"trait_type": "Approved", "value": "',
-                                idea.approved ? "Yes" : "No",
-                                '"},{"trait_type": "Submitter", "value": "',
-                                _addr,
-                                '"}] }'
+                                abi.encodePacked(
+                                    _start,
+                                    ideaId,
+                                    _title,
+                                    _sec,
+                                    _desc
+                                ),
+                                abi.encodePacked(
+                                    _3,
+                                    isApproved ? "Yes" : "No",
+                                    _4,
+                                    _name,
+                                    _animate
+                                )
                             )
                         )
                     )
@@ -162,20 +127,43 @@ abstract contract IdeaMetadata {
             );
     }
 
-    function addressToString(address x) internal pure returns (string memory) {
-        bytes memory s = new bytes(40);
-        for (uint256 i = 0; i < 20; i++) {
-            bytes1 b = bytes1(uint8(uint256(uint160(x)) / (2**(8 * (19 - i)))));
-            bytes1 hi = bytes1(uint8(b) / 16);
-            bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
-            s[2 * i] = char(hi);
-            s[2 * i + 1] = char(lo);
-        }
-        return string(s);
-    }
+    // function _createTokenURI(IdeaSBT.IdeaStruct memory idea)
+    //     internal
+    //     view
+    //     virtual
+    //     returns (string memory)
+    // {
+    //     string memory _addr = StringUtils.addressToString(idea.submitter);
+    //     bytes memory _id = abi.encodePacked(
+    //         "#",
+    //         Strings.toString(idea.id),
+    //         " "
+    //     );
+    //     bytes memory image = _createImage(idea, _id, _addr);
 
-    function char(bytes1 b) internal pure returns (bytes1 c) {
-        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
-        else return bytes1(uint8(b) + 0x57);
-    }
+    //     return
+    //         string(
+    //             abi.encodePacked(
+    //                 "data:application/json;base64,",
+    //                 Base64.encode(
+    //                     bytes(
+    //                         abi.encodePacked(
+    //                             '{"name": "',
+    //                             _id,
+    //                             idea.title,
+    //                             '","description": "',
+    //                             idea.desc,
+    //                             '", "image": "',
+    //                             image,
+    //                             '", "attributes": [{"trait_type": "Approved", "value": "',
+    //                             idea.approved ? "Yes" : "No",
+    //                             '"},{"trait_type": "Submitter", "value": "',
+    //                             _addr,
+    //                             '"}] }'
+    //                         )
+    //                     )
+    //                 )
+    //             )
+    //         );
+    // }
 }
