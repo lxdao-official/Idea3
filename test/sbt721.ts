@@ -21,10 +21,16 @@ describe("SBT721 test", function () {
     await (await did.mint("idea3")).wait();
     await (await did.lockDid("idea3")).wait();
 
+    const HandleProxyForDID = await ethers.getContractFactory("HandleProxyForDID");
+    const handleProxyForDID = await HandleProxyForDID.deploy(did.address);
+    await handleProxyForDID.deployed();
+    console.log("handleProxyForDID deploy to ", handleProxyForDID.address);
+
     const SBT = await ethers.getContractFactory("IdeaSBT");
-    sbt = await SBT.deploy(did.address);
-    [owner, bob, jane, sara] = await ethers.getSigners();
+    sbt = await SBT.deploy(handleProxyForDID.address);
     await sbt.deployed();
+
+    [owner, bob, jane, sara] = await ethers.getSigners();
 
     await (
       await sbt.submitIdea(

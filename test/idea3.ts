@@ -20,11 +20,16 @@ describe("ideaSBT test", function () {
     await (await did.setOpen(true)).wait();
     await (await did.mint("idea3")).wait();
     await (await did.lockDid("idea3")).wait();
+    const HandleProxyForDID = await ethers.getContractFactory("HandleProxyForDID");
+    const handleProxyForDID = await HandleProxyForDID.deploy(did.address);
+    await handleProxyForDID.deployed();
+    console.log("handleProxyForDID deploy to ", handleProxyForDID.address);
 
     const SBT = await ethers.getContractFactory("IdeaSBT");
-    sbt = await SBT.deploy(did.address);
-    [owner] = await ethers.getSigners();
+    sbt = await SBT.deploy(handleProxyForDID.address);
     await sbt.deployed();
+
+    [owner] = await ethers.getSigners();
   });
 
   it("correctly report idea and emit TopicSubmitted", async function () {
