@@ -15,14 +15,19 @@ const main = async () => {
   await did.deployed();
   console.log("did deploy to ", did.address);
 
-  await (await did.updateOpen(true)).wait();
+  await (await did.setOpen(true)).wait();
 
   await (await did.mint("idea3")).wait();
 
   await (await did.lockDid("idea3")).wait();
 
+  const HandleProxyForDID = await ethers.getContractFactory("HandleProxyForDID");
+  const handleProxyForDID = await HandleProxyForDID.deploy(did.address);
+  await handleProxyForDID.deployed();
+  console.log("handleProxyForDID deploy to ", handleProxyForDID.address);
+
   const SBT = await ethers.getContractFactory("IdeaSBT");
-  const sbt = await SBT.deploy(did.address);
+  const sbt = await SBT.deploy(handleProxyForDID.address);
   await sbt.deployed();
 
   // const sbt = SBT.attach("0x10F76ae93dF55FC1d971EEFdc0B3c769c6c85469");

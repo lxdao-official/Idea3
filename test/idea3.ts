@@ -17,7 +17,7 @@ describe("ideaSBT test", function () {
     const did = await DID.deploy(true);
     await did.deployed();
 
-    await (await did.updateOpen(true)).wait();
+    await (await did.setOpen(true)).wait();
     await (await did.mint("idea3")).wait();
     await (await did.lockDid("idea3")).wait();
 

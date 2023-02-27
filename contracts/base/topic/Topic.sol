@@ -8,7 +8,6 @@ abstract contract Topic is SBT721 {
     mapping(uint256 => TopicStruct) public topics;
 
     bool internal _canEdit = true;
-    bool internal _canBurn = false;
 
     uint256 public topicCount;
 

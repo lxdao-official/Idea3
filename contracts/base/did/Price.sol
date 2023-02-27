@@ -15,6 +15,8 @@ abstract contract Price is Ownable {
     uint256 public price4Letter;
     uint256 public price5Letter;
 
+    bool internal _isFree;
+
     function initializePrice(uint256[] memory _rentPrices) internal {
         price1Letter = _rentPrices[0];
         price2Letter = _rentPrices[1];
@@ -27,6 +29,9 @@ abstract contract Price is Ownable {
         uint256 len = name.strlen();
         require(len >= minLenth, "did too short");
         require(len <= maxLenth, "did too long");
+        if (_isFree) {
+            return 0;
+        }
         uint256 basePrice;
 
         if (len >= 5) {

@@ -13,73 +13,21 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
 contract IdeaDID is ERC721, Ownable, Price, Metadata, DID {
-    bool private isOpen = false;
+    bool public isOpen = false;
 
     uint256 private _nextTokenId = 1;
+    event Minted(address indexed to, uint256 indexed _amount, string did);
 
-    constructor(bool _isFree) ERC721("IdeaDID", "IdeaDID") {
+    constructor(bool _isFree_) ERC721("IdeaDID", "IdeaDID") {
         name_suffix = ".idea";
         description = "Idea3 DID";
         image_prefix = "";
-        if (_isFree) {
-            setIsFree();
-        } else {
-            uint256[] memory _rentPrices = new uint256[](5);
-            _rentPrices[0] = 1 ether;
-            _rentPrices[1] = 0.1 ether;
-            _rentPrices[2] = 0.05 ether;
-            _rentPrices[3] = 0.01 ether;
-            _rentPrices[4] = 0.005 ether;
-            initializePrice(_rentPrices);
-        }
+        _isFree = _isFree_;
     }
 
-    function setIsFree() public onlyOwner {
-        uint256[] memory _rentPrices = new uint256[](5);
-        _rentPrices[0] = 0 ether;
-        _rentPrices[1] = 0 ether;
-        _rentPrices[2] = 0 ether;
-        _rentPrices[3] = 0 ether;
-        _rentPrices[4] = 0 ether;
-        initializePrice(_rentPrices);
+    function setIsFree(bool _isFree_) public onlyOwner {
+        _isFree = _isFree_;
     }
-
-    /**
-     * 将 did 锁定到当前地址
-     */
-    function lockDid(string calldata did) external {
-        require(checkExist(did), "did not minted");
-        uint256 tokenId = resolveDidToTokenId(did);
-        require(ownerOf(tokenId) == msg.sender, "not owner");
-        lockToAddress(tokenId, msg.sender);
-    }
-
-    /**
-     * 将 did 解锁
-     */
-    function unlockDid(string calldata did) external {
-        require(checkExist(did), "did not minted");
-        uint256 tokenId = resolveDidToTokenId(did);
-        require(ownerOf(tokenId) == msg.sender, "not owner");
-        unlockAddress(msg.sender);
-    }
-
-    /**
-     * 被锁定的 tokenId 不能转移
-     */
-    function approve(address to, uint256 tokenId) public virtual override {
-        require(!isTokenIdLocked(tokenId), "token locked");
-    }
-
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual override {
-        require(!isTokenIdLocked(tokenId), "token locked");
-    }
-
-    event Minted(address indexed to, uint256 indexed _amount, string did);
 
     function mint(string calldata did) external payable {
         require(isOpen, "not open");
@@ -96,23 +44,45 @@ contract IdeaDID is ERC721, Ownable, Price, Metadata, DID {
         emit Minted(msg.sender, 1, did);
     }
 
-    function mintByOwner(address _to, string calldata did) external onlyOwner {
-        _mint(_to, did);
+    /**
+     * lock did to current address
+     */
+    function lockDid(string calldata did) external {
+        require(checkExist(did), "did not minted");
+        uint256 tokenId = resolveDidToTokenId(did);
+        require(ownerOf(tokenId) == msg.sender, "not owner");
+        lockToAddress(tokenId, msg.sender);
     }
 
-    function withdraw(address payable recipient) external onlyOwner {
-        uint256 balance = address(this).balance;
-        (bool success, ) = recipient.call{value: balance}("");
-        require(success, "fail withdraw");
+    /**
+     * unlock did from current address
+     */
+    function unlockDid(string calldata did) external {
+        require(checkExist(did), "did not minted");
+        uint256 tokenId = resolveDidToTokenId(did);
+        require(ownerOf(tokenId) == msg.sender, "not owner");
+        unlockAddress(msg.sender);
     }
 
-    function updateOpen(bool _isOpen) external onlyOwner {
-        isOpen = _isOpen;
+    /**
+     * can't transfer locked token
+     */
+    function approve(address to, uint256 tokenId) public virtual override {
+        require(!isTokenIdLocked(tokenId), "token locked");
     }
 
-    function getOpen() external view returns (bool) {
-        return isOpen;
+    /**
+     * can't transfer locked token
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
+        require(!isTokenIdLocked(tokenId), "token locked");
     }
+
+    /// @dev ERC721
 
     function tokenURI(uint256 tokenId)
         public
@@ -123,6 +93,22 @@ contract IdeaDID is ERC721, Ownable, Price, Metadata, DID {
         require(_exists(tokenId), "tokenId doesn't exist");
         string memory did = tokenIdToDid[tokenId];
         return _createTokenURI(tokenId, did);
+    }
+
+    /// @dev owner actions
+    function mintByOwner(address _to, string calldata did) external onlyOwner {
+        _mint(_to, did);
+    }
+
+    function setOpen(bool _isOpen) external onlyOwner {
+        isOpen = _isOpen;
+    }
+
+    /// @dev withdraw all eth
+    function withdraw(address payable recipient) external onlyOwner {
+        uint256 balance = address(this).balance;
+        (bool success, ) = recipient.call{value: balance}("");
+        require(success, "fail withdraw");
     }
 
     fallback() external payable {}

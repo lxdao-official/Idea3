@@ -56,7 +56,6 @@ abstract contract DID is Ownable, IDID {
     {
         bytes32 didhash = keccak256(abi.encodePacked(did));
         uint256 tokenId = didhashToTokenId[didhash];
-        require(tokenId != 0, "did not exist");
         return tokenId;
     }
 
@@ -75,7 +74,9 @@ abstract contract DID is Ownable, IDID {
         returns (address)
     {
         uint256 tokenId = resolveDidToTokenId(did);
-        require(tokenId != 0, "did not exist");
+        if (tokenId == 0) {
+            return address(0);
+        }
         return resolveTokenIdToAddress(tokenId);
     }
 
@@ -85,7 +86,9 @@ abstract contract DID is Ownable, IDID {
         returns (string memory)
     {
         uint256 tokenId = resolveAddressToTokenId(address_);
-        require(tokenId != 0, "address not exist");
+        if (tokenId == 0) {
+            return "";
+        }
         return resolveTokenIdToDid(tokenId);
     }
 

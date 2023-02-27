@@ -9,22 +9,11 @@ contract SubIdeaSBT is SBT1155, Ownable {
     bool private _canEdit = true;
     bool private _feeOn = false;
     uint256 private _fee = 0.01 ether;
+
+    uint256 public subIdeaCount;
     mapping(uint256 => uint256) private idea_subidea_count;
-    uint256 private subideaCount;
 
     IIdeaSBT private ideaSBT;
-
-    function setFeeOn(bool feeOn) public onlyOwner {
-        _feeOn = feeOn;
-    }
-
-    function setFee(uint256 fee) public onlyOwner {
-        _fee = fee;
-    }
-
-    function setCanEdit(bool canEdit) public onlyOwner {
-        _canEdit = canEdit;
-    }
 
     constructor(address _ideaSBT, string memory uri_) ERC1155(uri_) {
         ideaSBT = IIdeaSBT(_ideaSBT);
@@ -70,7 +59,7 @@ contract SubIdeaSBT is SBT1155, Ownable {
             block.timestamp
         );
         _mint(msg.sender, ideaId, 1, "");
-        subideaCount += 1;
+        subIdeaCount += 1;
         idea_subidea_count[ideaId] += 1;
         emit SubIdeaSubmitted(subideaId, ideaId, markdown, msg.sender);
     }
@@ -87,10 +76,6 @@ contract SubIdeaSBT is SBT1155, Ownable {
         return idea_subidea_count[ideaId];
     }
 
-    function getAllSubIdeaCount() public view returns (uint256) {
-        return subideaCount;
-    }
-
     function editSubIdea(
         uint256 ideaId,
         uint256 subideaId,
@@ -103,4 +88,28 @@ contract SubIdeaSBT is SBT1155, Ownable {
         idea_subideas[ideaId][subideaId].markdown = markdown;
         idea_subideas[ideaId][subideaId].updateAt = block.timestamp;
     }
+
+    /// @dev owner functions
+    function setFeeOn(bool feeOn) public onlyOwner {
+        _feeOn = feeOn;
+    }
+
+    function setFee(uint256 fee) public onlyOwner {
+        _fee = fee;
+    }
+
+    function setCanEdit(bool canEdit) public onlyOwner {
+        _canEdit = canEdit;
+    }
+
+    /// @dev withdraw
+    function withdraw(address payable recipient) external onlyOwner {
+        uint256 balance = address(this).balance;
+        (bool success, ) = recipient.call{value: balance}("");
+        require(success, "fail withdraw");
+    }
+
+    fallback() external payable {}
+
+    receive() external payable {}
 }

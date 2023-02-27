@@ -6,26 +6,35 @@ import "./IdeaImage.sol";
 import "../base/lib/ownable.sol";
 import "./IIdeaSBT.sol";
 import "../base/metadata/DynamicMetadata.sol";
-import "../base/did/IDID.sol";
 import "../base/lib/StringUtils.sol";
+import "./proxy/IHandleProxy.sol";
 
+/// @title Idea Smart Bussiness Token
+/// @author 1998
+/// @notice This contract is used to create and manage ideas
 contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
+    /// @dev The address of the HandleProxy contract, used to get the handle of an address from different protocols
+    IHandleProxy private _handleProxy;
+
+    /// @dev Whether to check the handle of the submitter
+    bool private _checkHandle = true;
+
+    /// @dev The address of the approver, only the approver can approve or unapprove ideas
     address private _approver;
-    bool private _checkDid = true;
-    // open service fee
+
+    /// @dev Whether to charge a fee for submitting an idea
     bool private _feeOn = false;
+
+    /// @dev The fee for submitting an idea
     uint256 private _fee = 0.1 ether;
 
-    IDID private _did;
+    /// @dev ideas approved status
     mapping(uint256 => bool) public isIdeaApproved;
-
-    constructor(address _didAddress) ERC721("Idea3SBT", "Idea3SBT") {
-        _did = IDID(_didAddress);
-    }
 
     event IdeaApproved(uint256 id);
     event IdeaUnapproved(uint256 id);
 
+    /// @dev extends of topic struct
     struct IdeaStruct {
         uint256 id;
         string title;
@@ -38,28 +47,19 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         string submitterDID;
     }
 
-    function getAddressDid(address address_)
-        public
-        view
-        returns (string memory)
-    {
-        string memory didstr = _did.resolveAddressToDid(address_);
-        if (StringUtils.isEmpty(didstr)) {
-            return StringUtils.addressToString(address_);
-        } else {
-            return didstr;
-        }
+    constructor(address _handleProxy_) ERC721("Idea3SBT", "Idea3SBT") {
+        _handleProxy = IHandleProxy(_handleProxy_);
     }
 
     function submitIdea(
         string memory title,
         string memory desc,
         string memory markdown
-    ) public payable {
-        // check did
-        if (_checkDid) {
-            uint256 tokenId = _did.resolveAddressToTokenId(msg.sender);
-            require(tokenId > 0, "DID not registered");
+    ) external payable {
+        // check handle
+        if (_checkHandle) {
+            string memory handle = _handleProxy.getHandleByAddress(msg.sender);
+            require(!StringUtils.isEmpty(handle), "no handle found");
         }
 
         if (_feeOn) {
@@ -70,14 +70,14 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         _submit(title, desc, markdown);
     }
 
-    function approveIdea(uint256 id) public {
+    function approveIdea(uint256 id) external {
         require(_approver == msg.sender, "Only approver can approve ideas");
         require(isIdeaApproved[id] == false, "Idea already approved");
         isIdeaApproved[id] = true;
         emit IdeaApproved(id);
     }
 
-    function unapproveIdea(uint256 id) public {
+    function unapproveIdea(uint256 id) external {
         require(_approver == msg.sender, "Only approver can unapprove ideas");
         require(isIdeaApproved[id] == true, "Idea already unapproved");
         isIdeaApproved[id] = false;
@@ -95,13 +95,13 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
             topic.createAt,
             topic.updateAt,
             isIdeaApproved[id],
-            getAddressDid(topic.submitter)
+            _getAddressDid(topic.submitter)
         );
         return idea;
     }
 
     function getIdeas(uint256[] memory _ideaIds)
-        public
+        external
         view
         returns (IdeaStruct[] memory)
     {
@@ -117,21 +117,27 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         string memory title,
         string memory desc,
         string memory markdown
-    ) public {
+    ) external {
         TopicStruct memory topic = _getTopic(id);
         require(topic.submitter == msg.sender, "Only submitter can edit idea");
         _editTopic(id, title, desc, markdown);
     }
 
-    function editIdeaByOwner(
-        uint256 id,
-        string memory title,
-        string memory desc,
-        string memory markdown
-    ) public onlyOwner {
-        _editTopic(id, title, desc, markdown);
+    /// @dev get the handle of an address for internal use
+    function _getAddressDid(address address_)
+        private
+        view
+        returns (string memory)
+    {
+        string memory didstr = _handleProxy.getHandleByAddress(address_);
+        if (StringUtils.isEmpty(didstr)) {
+            return StringUtils.addressToString(address_);
+        } else {
+            return didstr;
+        }
     }
 
+    ///@dev ERC721 override
     function tokenURI(uint256 tokenId)
         public
         view
@@ -142,7 +148,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         return _dynamicTokenURI(tokenId);
     }
 
-    ///@dev DynamicMetadata
+    ///@dev DynamicMetadata override
     function _getName(uint256 _tokenId)
         internal
         view
@@ -181,7 +187,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         image = _createImage(
             _tokenId,
             idea.submitter,
-            getAddressDid(idea.submitter),
+            _getAddressDid(idea.submitter),
             idea.title,
             idea.desc,
             idea.approved
@@ -230,6 +236,30 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
     }
 
     function setCheckDid(bool checkDid) public onlyOwner {
-        _checkDid = checkDid;
+        _checkHandle = checkDid;
     }
+
+    function setHandleProxy(address _handleProxy_) public onlyOwner {
+        _handleProxy = IHandleProxy(_handleProxy_);
+    }
+
+    function editIdeaByOwner(
+        uint256 id,
+        string memory title,
+        string memory desc,
+        string memory markdown
+    ) external onlyOwner {
+        _editTopic(id, title, desc, markdown);
+    }
+
+    /// @dev withdraw
+    function withdraw(address payable recipient) external onlyOwner {
+        uint256 balance = address(this).balance;
+        (bool success, ) = recipient.call{value: balance}("");
+        require(success, "fail withdraw");
+    }
+
+    fallback() external payable {}
+
+    receive() external payable {}
 }
