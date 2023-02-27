@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "./IHandleProxy.sol";
-import "../../base/did/IDID.sol";
+import "../../base/did/IDIDResolver.sol";
 import "../../base/lib/ownable.sol";
 
 contract HandleProxyForDID is IHandleProxy, Ownable {
-    IDID private did;
+    IDIDResolver private did;
 
     constructor(address _didAddress) {
-        did = IDID(_didAddress);
+        did = IDIDResolver(_didAddress);
     }
 
     function getHandleByAddress(address _address)
@@ -20,6 +20,6 @@ contract HandleProxyForDID is IHandleProxy, Ownable {
     }
 
     function setDIDAddress(address _didAddress) public onlyOwner {
-        did = IDID(_didAddress);
+        did = IDIDResolver(_didAddress);
     }
 }

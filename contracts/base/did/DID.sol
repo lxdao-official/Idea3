@@ -1,106 +1,110 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import "./IDID.sol";
-import "../lib/StringUtils.sol";
+
 import "../lib/ownable.sol";
+import "../lib/StringUtils.sol";
+import "./Price.sol";
+import "./Metadata.sol";
+import "./DIDResolver.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-abstract contract DID is Ownable, IDID {
-    mapping(bytes32 => uint256) public didhashToTokenId;
-    mapping(uint256 => string) public tokenIdToDid;
+abstract contract DID is ERC721, Ownable, Price, Metadata, DIDResolver {
+    bool public isOpen = true;
 
-    mapping(uint256 => address) public tokenIdToAddress;
-    mapping(address => uint256) public addressToTokenId;
+    uint256 private _nextTokenId = 1;
+    event Minted(address indexed to, uint256 indexed _amount, string did);
 
-    function lockToAddress(uint256 tokenId, address address_) internal {
-        require(
-            addressToTokenId[address_] == 0,
-            "address already locked to token"
-        );
-        addressToTokenId[address_] = tokenId;
-        tokenIdToAddress[tokenId] = address_;
+    function setIsFree(bool _isFree_) public onlyOwner {
+        _isFree = _isFree_;
     }
 
-    function unlockAddress(address address_) internal {
-        uint256 tokenId = addressToTokenId[address_];
-        require(tokenId != 0, "address not locked to token");
-        delete addressToTokenId[address_];
-        delete tokenIdToAddress[tokenId];
+    function mint(string calldata did) external payable {
+        require(isOpen, "not open");
+        require(getPrice(did) <= msg.value, "no enough eth");
+        _mint(msg.sender, did);
     }
 
-    function isTokenIdLocked(uint256 tokenId) internal view returns (bool) {
-        return tokenIdToAddress[tokenId] != address(0);
+    function _mint(address to, string calldata did) internal {
+        require(!checkExist(did), "did already minted");
+        uint256 tokenId = _nextTokenId;
+        _safeMint(to, tokenId);
+        addRecord(did, tokenId);
+        _nextTokenId++;
+        emit Minted(msg.sender, 1, did);
     }
 
-    function resolveTokenIdToAddress(uint256 tokenId)
-        public
-        view
-        returns (address)
-    {
-        return tokenIdToAddress[tokenId];
-    }
-
-    function resolveAddressToTokenId(address address_)
-        public
-        view
-        returns (uint256)
-    {
-        return addressToTokenId[address_];
-    }
-
-    function resolveDidToTokenId(string calldata did)
-        public
-        view
-        returns (uint256)
-    {
-        bytes32 didhash = keccak256(abi.encodePacked(did));
-        uint256 tokenId = didhashToTokenId[didhash];
-        return tokenId;
-    }
-
-    function resolveTokenIdToDid(uint256 tokenId)
-        public
-        view
-        returns (string memory)
-    {
-        string memory did = tokenIdToDid[tokenId];
-        return did;
-    }
-
-    function resolveDidToAddress(string calldata did)
-        public
-        view
-        returns (address)
-    {
+    /**
+     * lock did to current address
+     */
+    function lockDid(string calldata did) external {
+        require(checkExist(did), "did not minted");
         uint256 tokenId = resolveDidToTokenId(did);
-        if (tokenId == 0) {
-            return address(0);
-        }
-        return resolveTokenIdToAddress(tokenId);
+        require(ownerOf(tokenId) == msg.sender, "not owner");
+        lockToAddress(tokenId, msg.sender);
     }
 
-    function resolveAddressToDid(address address_)
+    /**
+     * unlock did from current address
+     */
+    function unlockDid(string calldata did) external {
+        require(checkExist(did), "did not minted");
+        uint256 tokenId = resolveDidToTokenId(did);
+        require(ownerOf(tokenId) == msg.sender, "not owner");
+        unlockAddress(msg.sender);
+    }
+
+    /**
+     * can't transfer locked token
+     */
+    function approve(address to, uint256 tokenId) public virtual override {
+        require(!isTokenIdLocked(tokenId), "token locked");
+    }
+
+    /**
+     * can't transfer locked token
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
+        require(!isTokenIdLocked(tokenId), "token locked");
+    }
+
+    /// @dev ERC721
+
+    function tokenURI(uint256 tokenId)
         public
         view
+        override
         returns (string memory)
     {
-        uint256 tokenId = resolveAddressToTokenId(address_);
-        if (tokenId == 0) {
-            return "";
-        }
-        return resolveTokenIdToDid(tokenId);
+        require(_exists(tokenId), "tokenId doesn't exist");
+        string memory did = tokenIdToDid[tokenId];
+        return _createTokenURI(tokenId, did);
     }
 
-    function addRecord(string calldata did, uint256 tokenId) internal {
-        bytes32 didhash = keccak256(abi.encodePacked(did));
-        require(didhashToTokenId[didhash] == 0, "did already minted");
-        didhashToTokenId[didhash] = tokenId;
-        tokenIdToDid[tokenId] = (did);
+    /// @dev owner actions
+    function mintByOwner(address _to, string calldata did) external onlyOwner {
+        _mint(_to, did);
     }
 
-    function checkExist(string calldata did) internal view returns (bool) {
-        bytes32 didhash = keccak256(abi.encodePacked(did));
-        return didhashToTokenId[didhash] != 0;
+    function setOpen(bool _isOpen) external onlyOwner {
+        isOpen = _isOpen;
     }
+
+    /// @dev withdraw all eth
+    function withdraw(address payable recipient) external onlyOwner {
+        uint256 balance = address(this).balance;
+        (bool success, ) = recipient.call{value: balance}("");
+        require(success, "fail withdraw");
+    }
+
+    fallback() external payable {}
+
+    receive() external payable {}
 }

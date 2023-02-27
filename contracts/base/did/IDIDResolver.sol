@@ -5,7 +5,7 @@ import "../lib/ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-interface IDID {
+interface IDIDResolver {
     function resolveTokenIdToAddress(uint256 tokenId)
         external
         view

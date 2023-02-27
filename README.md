@@ -42,3 +42,20 @@ Share ideas, discuss ideas, get $IDEA and support from the community, make it re
 1. 递进式功能叠加，从基础模块开始，一步一步叠加合约。
 2. 沉淀基础合约，如 sbt 、svg metadata 等。
 3. 沉淀基础模块，如 topic、like、comment 等，并由此模块构建更高级的模块，如 idea、subidea、likeidea 等。
+
+### 合约代码结构
+
+# contracts
+
+- [base/](./contracts/base)
+  - [did/](./contracts/base/did)
+    - DID NFT minting and binding to wallet address.
+    - resolve DID to wallet address, resolve wallet address to DID etc.
+    - DID Price management contract.
+  - [lib/](./contracts/base/lib)
+  - [metadata/](./contracts/base/metadata)
+  - [sbt/](./contracts/base/sbt)
+  - [topic/](./contracts/base/topic)
+  - [tradable/](./contracts/base/tradable)
+- [idea3/](./contracts/idea3)
+  - [proxy/](./contracts/idea3/proxy)
