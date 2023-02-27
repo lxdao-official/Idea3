@@ -1,4 +1,4 @@
-# Idea3 - Publish, Own, and Sell Your Ideas on the Blockchain
+# Idea3 - Make more ideas reality
 
 ## our mission
 
@@ -43,19 +43,25 @@ Share ideas, discuss ideas, get $IDEA and support from the community, make it re
 2. 沉淀基础合约，如 sbt 、svg metadata 等。
 3. 沉淀基础模块，如 topic、like、comment 等，并由此模块构建更高级的模块，如 idea、subidea、likeidea 等。
 
-### 合约代码结构
-
-# contracts
+### contracts
 
 - [base/](./contracts/base)
   - [did/](./contracts/base/did)
     - DID NFT minting and binding to wallet address.
-    - resolve DID to wallet address, resolve wallet address to DID etc.
+    - Resolve DID to wallet address, resolve wallet address to DID etc.
     - DID Price management contract.
   - [lib/](./contracts/base/lib)
+    - Basic library for string and ownable etc.
   - [metadata/](./contracts/base/metadata)
+    - SVG Dynamic Metadata contract.
   - [sbt/](./contracts/base/sbt)
+    - SBT721 and SBT1155 contract.
   - [topic/](./contracts/base/topic)
+    - Basic content management contract.
+    - Topic, Comment, Like, Tag, etc.
   - [tradable/](./contracts/base/tradable)
+    - ERC721 tradable extension contract.
 - [idea3/](./contracts/idea3)
   - [proxy/](./contracts/idea3/proxy)
+    - Handle proxy contract for idea3. Compatible within self did contract and other did contract.
+  - Idea3 bussiness logic contract.
