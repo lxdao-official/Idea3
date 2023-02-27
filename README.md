@@ -6,9 +6,9 @@ Make more ideas reality
 
 Share ideas, discuss ideas, get $IDEA and support from the community, make it reality together.
 
-合约代码地址：[](https://github.com/lxdao-official/Idea3)
+合约代码地址：[https://github.com/lxdao-official/Idea3](https://github.com/lxdao-official/Idea3)
 
-前端代码地址：[](https://github.com/lxdao-official/idea3-frontend)
+前端代码地址：[https://github.com/lxdao-official/idea3-frontend](https://github.com/lxdao-official/idea3-frontend)
 
 ### 他的主要模块如下：
 
