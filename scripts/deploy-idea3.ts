@@ -15,18 +15,18 @@ const main = async () => {
   await did.deployed();
   console.log("did deploy to ", did.address);
 
+  await (await did.updateOpen(true)).wait();
+
+  await (await did.mint("idea3")).wait();
+
+  await (await did.lockDid("idea3")).wait();
+
   const SBT = await ethers.getContractFactory("IdeaSBT");
   const sbt = await SBT.deploy(did.address);
   await sbt.deployed();
 
   // const sbt = SBT.attach("0x10F76ae93dF55FC1d971EEFdc0B3c769c6c85469");
   console.log("sbt deploy to ", sbt.address);
-
-  await (await did.updateOpen(true)).wait();
-
-  await (await did.mint("idea3")).wait();
-
-  await (await did.lockDid("idea3")).wait();
 
   // return;
   // const NFT = await ethers.getContractFactory("IdeaNFT");
@@ -58,12 +58,14 @@ const main = async () => {
   // await (await nft.approveIdea(1)).wait();
 
   console.log("nft approve sbt ");
+
+  // check metadata and Image
   const tokenURL = await sbt.tokenURI(0);
-  console.log(tokenURL);
   const metadata = atob(tokenURL.replace("data:application/json;base64,", ""));
 
   const metadataJSON = JSON.parse(metadata);
-  console.log(metadataJSON);
+
+  console.log("metadataJSON", metadataJSON);
 
   const image = metadataJSON.image.replace("data:image/svg+xml;base64,", "");
   const svg = atob(image);
