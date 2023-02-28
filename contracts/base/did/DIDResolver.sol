@@ -16,6 +16,9 @@ abstract contract DIDResolver is Ownable, IDIDResolver {
     mapping(uint256 => address) public tokenIdToAddress;
     mapping(address => uint256) public addressToTokenId;
 
+    event DIDLocked(uint256 tokenId, address address_);
+    event DIDUnlocked(uint256 tokenId, address address_);
+
     function lockToAddress(uint256 tokenId, address address_) internal {
         require(
             addressToTokenId[address_] == 0,
@@ -23,6 +26,7 @@ abstract contract DIDResolver is Ownable, IDIDResolver {
         );
         addressToTokenId[address_] = tokenId;
         tokenIdToAddress[tokenId] = address_;
+        emit DIDLocked(tokenId, address_);
     }
 
     function unlockAddress(address address_) internal {
@@ -30,6 +34,7 @@ abstract contract DIDResolver is Ownable, IDIDResolver {
         require(tokenId != 0, "address not locked to token");
         delete addressToTokenId[address_];
         delete tokenIdToAddress[tokenId];
+        emit DIDUnlocked(tokenId, address_);
     }
 
     function isTokenIdLocked(uint256 tokenId) internal view returns (bool) {

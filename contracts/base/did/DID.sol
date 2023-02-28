@@ -7,12 +7,19 @@ import "./Price.sol";
 import "./Metadata.sol";
 import "./DIDResolver.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-abstract contract DID is ERC721, Ownable, Price, Metadata, DIDResolver {
+abstract contract DID is
+    ERC721Enumerable,
+    Ownable,
+    Price,
+    Metadata,
+    DIDResolver
+{
     bool public isOpen = true;
 
     uint256 private _nextTokenId = 1;
@@ -35,6 +42,32 @@ abstract contract DID is ERC721, Ownable, Price, Metadata, DIDResolver {
         addRecord(did, tokenId);
         _nextTokenId++;
         emit Minted(msg.sender, 1, did);
+    }
+
+    function getAddressesTokenIdList(address _addr)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        uint256 balance = balanceOf(_addr);
+        uint256[] memory tokenIds = new uint256[](balance);
+        for (uint256 i = 0; i < balance; i++) {
+            tokenIds[i] = tokenOfOwnerByIndex(_addr, i);
+        }
+        return tokenIds;
+    }
+
+    function getAddressesDIDList(address _addr)
+        public
+        view
+        returns (string[] memory)
+    {
+        uint256 balance = balanceOf(_addr);
+        string[] memory dids = new string[](balance);
+        for (uint256 i = 0; i < balance; i++) {
+            dids[i] = tokenIdToDid[tokenOfOwnerByIndex(_addr, i)];
+        }
+        return dids;
     }
 
     /**
@@ -66,19 +99,12 @@ abstract contract DID is ERC721, Ownable, Price, Metadata, DIDResolver {
     /**
      * can't transfer locked token
      */
-    function approve(address to, uint256 tokenId) public virtual override {
-        require(!isTokenIdLocked(tokenId), "token locked");
-    }
-
-    /**
-     * can't transfer locked token
-     */
     function _beforeTokenTransfer(
         address from,
         address to,
         uint256 tokenId
     ) internal virtual override {
-        require(!isTokenIdLocked(tokenId), "token locked");
+        require(!isTokenIdLocked(tokenId), "token is locked");
     }
 
     /// @dev ERC721
