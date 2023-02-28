@@ -47,6 +47,12 @@ abstract contract DID is ERC721, Ownable, Price, Metadata, DIDResolver {
         lockToAddress(tokenId, msg.sender);
     }
 
+    function isDidLocked(string calldata did) external view returns (bool) {
+        require(checkExist(did), "did not minted");
+        uint256 tokenId = resolveDidToTokenId(did);
+        return isTokenIdLocked(tokenId);
+    }
+
     /**
      * unlock did from current address
      */

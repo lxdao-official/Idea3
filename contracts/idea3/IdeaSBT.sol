@@ -44,7 +44,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         uint256 createAt;
         uint256 updateAt;
         bool approved;
-        string submitterDID;
+        string submitterHandle;
     }
 
     constructor(address _handleProxy_) ERC721("Idea3SBT", "Idea3SBT") {
@@ -95,7 +95,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
             topic.createAt,
             topic.updateAt,
             isIdeaApproved[id],
-            _getAddressDid(topic.submitter)
+            _getAddressHandle(topic.submitter)
         );
         return idea;
     }
@@ -124,16 +124,16 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
     }
 
     /// @dev get the handle of an address for internal use
-    function _getAddressDid(address address_)
+    function _getAddressHandle(address address_)
         private
         view
         returns (string memory)
     {
-        string memory didstr = _handleProxy.getHandleByAddress(address_);
-        if (StringUtils.isEmpty(didstr)) {
+        string memory handlestr = _handleProxy.getHandleByAddress(address_);
+        if (StringUtils.isEmpty(handlestr)) {
             return StringUtils.addressToString(address_);
         } else {
-            return didstr;
+            return handlestr;
         }
     }
 
@@ -187,7 +187,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
         image = _createImage(
             _tokenId,
             idea.submitter,
-            _getAddressDid(idea.submitter),
+            _getAddressHandle(idea.submitter),
             idea.title,
             idea.desc,
             idea.approved
