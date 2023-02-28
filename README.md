@@ -6,11 +6,11 @@ Make more ideas reality
 
 Share ideas, discuss ideas, get $IDEA and support from the community, make it reality together.
 
-合约代码地址：[https://github.com/lxdao-official/Idea3](https://github.com/lxdao-official/Idea3)
+Contract code repo: [https://github.com/lxdao-official/Idea3](https://github.com/lxdao-official/Idea3)
 
-前端代码地址：[https://github.com/lxdao-official/idea3-frontend](https://github.com/lxdao-official/idea3-frontend)
+Frontend code repo: [https://github.com/lxdao-official/idea3-frontend](https://github.com/lxdao-official/idea3-frontend)
 
-### 他的主要模块如下：
+### Main Module：
 
 1. DID 合约
    1. 用户首先需要 mint 一个 did，did 会被铸造成为一个 ERC721 NFT（DIDNFT）。

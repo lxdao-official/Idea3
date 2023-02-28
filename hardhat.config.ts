@@ -6,7 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
-
+import "hardhat-abi-exporter";
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
@@ -63,6 +63,18 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  abiExporter: {
+    path: "../idea3-frontend/abi",
+    runOnCompile: true,
+    clear: true,
+    flat: false,
+    spacing: 2,
+    format: "json",
+  },
+  typechain: {
+    outDir: "../idea3-frontend/types",
+    target: "ethers-v5",
   },
 };
 
