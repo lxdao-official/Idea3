@@ -70,8 +70,6 @@ const main = async () => {
 
   const metadataJSON = JSON.parse(metadata);
 
-  console.log("metadataJSON", metadataJSON);
-
   const image = metadataJSON.image.replace("data:image/svg+xml;base64,", "");
   const svg = atob(image);
 
@@ -83,6 +81,11 @@ const main = async () => {
     app: {
       name: "google chrome",
     },
+  });
+
+  console.log({
+    sbt: sbt.address,
+    did: did.address,
   });
 };
 
