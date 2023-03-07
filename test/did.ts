@@ -30,6 +30,12 @@ describe("ideaSBT test", function () {
     expect(await (await did.mint("idea3")).wait()).to.emit(did, "Minted");
     expect(await (await did.mint("idea4")).wait()).to.emit(did, "Minted");
     expect(await (await did.lockDid("idea3")).wait()).to.emit(did, "Locked");
+
+    // get did list
+    const didList = await did.getAddressesDIDList(owner.address);
+    expect(didList.length).to.equal(2);
+    expect(didList[0]).to.equal("idea3");
+    expect(didList[1]).to.equal("idea4");
   });
 
   it("mint already exist did", async function () {

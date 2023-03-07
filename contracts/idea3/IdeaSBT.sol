@@ -64,7 +64,7 @@ contract IdeaSBT is IdeaImage, DynamicMetadata, Topic, Ownable, IIdeaSBT {
 
         if (_feeOn) {
             if (balanceOf(owner) > 1) {
-                require(msg.value >= 0.01 ether, "Fee not paid");
+                require(msg.value >= _fee, "Fee not paid");
             }
         }
         _submit(title, desc, markdown);

@@ -1,5 +1,5 @@
 {
-  "name": "dao-taskpay-contract",
+  "name": "idea3",
   "version": "0.0.1",
   "scripts": {
     "test": "npx hardhat test",

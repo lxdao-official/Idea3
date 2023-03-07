@@ -11,43 +11,46 @@ const main = async () => {
   console.log("deployer.address", deployer.address);
 
   const DID = await ethers.getContractFactory("IdeaDID");
-  const did = await DID.deploy(true);
-  await did.deployed();
+  // const did = await DID.deploy(true);
+  // await did.deployed();
+  const did = DID.attach("0xe4ed8783df1b4e8328870cfe0c4cb7c494f347d3");
   console.log("did deploy to ", did.address);
 
-  await (await did.setOpen(true)).wait();
+  // const didlist = await did.getAddressesDIDList(deployer.address);
+  // console.log("didlist", didlist);
+  // await (await did.mint("idea3")).wait();
+  // await (await did.mint("idea4")).wait();
 
-  await (await did.mint("idea3")).wait();
-
-  await (await did.lockDid("idea3")).wait();
+  // await (await did.lockDid("idea3")).wait();
 
   const HandleProxyForDID = await ethers.getContractFactory("HandleProxyForDID");
-  const handleProxyForDID = await HandleProxyForDID.deploy(did.address);
-  await handleProxyForDID.deployed();
+  // const handleProxyForDID = await HandleProxyForDID.deploy(did.address);
+  // await handleProxyForDID.deployed();
+  const handleProxyForDID = HandleProxyForDID.attach("0x7ab5caaE211C43Adec1C1Fa2D76fD6f5593d7f70");
   console.log("handleProxyForDID deploy to ", handleProxyForDID.address);
 
-  const SBT = await ethers.getContractFactory("IdeaSBT");
-  const sbt = await SBT.deploy(handleProxyForDID.address);
-  await sbt.deployed();
+  console.log(await handleProxyForDID.getHandleByAddress(deployer.address));
 
-  // const sbt = SBT.attach("0x10F76ae93dF55FC1d971EEFdc0B3c769c6c85469");
+  const SBT = await ethers.getContractFactory("IdeaSBT");
+  // const sbt = await SBT.deploy(handleProxyForDID.address, {});
+  // await sbt.deployed();
+
+  const sbt = SBT.attach("0x73775C5B9CdC0C55aaEc159ED32613639C4e5995");
   console.log("sbt deploy to ", sbt.address);
 
-  // return;
-  // const NFT = await ethers.getContractFactory("IdeaNFT");
-  // const nft = await NFT.deploy(sbt.address);
-  // await nft.deployed();
-  // console.log("nft deploy to ", nft.address);
+  // await (await did.setOpen(true)).wait();
 
-  // await (await sbt.setApprover(nft.address)).wait();
+  // await (await did.mint("idea3")).wait();
+  // await (await did.mint("idea4")).wait();
 
-  await (
-    await sbt.submitIdea(
-      "Idea3 - Make more ideas reality",
-      "Share your ideas, get $IDEA and support from the community, and make it reality.",
-      "[https://idea3.link](https://idea3.link)"
-    )
-  ).wait();
+  // await (await did.lockDid("idea3")).wait();
+  // await (
+  //   await sbt.submitIdea(
+  //     "Idea3 - Make more ideas reality",
+  //     "Share your ideas, get $IDEA and support from the community, and make it reality.",
+  //     "[https://idea3.link](https://idea3.link)"
+  //   )
+  // ).wait();
 
   // await (
   //   await sbt.editIdeaByOwner(

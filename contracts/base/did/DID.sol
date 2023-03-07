@@ -105,6 +105,7 @@ abstract contract DID is
         uint256 tokenId
     ) internal virtual override {
         require(!isTokenIdLocked(tokenId), "token is locked");
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 
     /// @dev ERC721
